@@ -1,4 +1,13 @@
 
+message "Force locale to en_US.UTF-8 during installation"
+
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_COLLATE=C
+export LC_CTYPE=en_US.UTF-8
+
+ok
+
 message "Installing epel-release, git and screen"
 
 if
