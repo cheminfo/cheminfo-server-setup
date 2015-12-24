@@ -1,16 +1,3 @@
-yum install --assumeyes iptables-services > /dev/null
-
-message "Adding rules in iptables file"
-
-if
-    grep --silent CHEMINFO /etc/sysconfig/iptables
-then
-    ok
-    info "The service was already configured and CHEMINFO is in the file"
-else
-
-read -d '' DATA <<EOF
-
 ##### CHEMINFO
 
 -A INPUT -s 128.178.0.0/15 -p tcp -m tcp --dport ssh -j ACCEPT -m comment --comment "EPFL"
@@ -31,23 +18,3 @@ read -d '' DATA <<EOF
 
 #### END CHEMINFO
 
-EOF
-
-    DATA2=`echo "$DATA" | sed ':a;N;$!ba;s/\n/\\\\n/g'`
-if
-    sed -ibcp "/--dport 22/c$DATA2" /etc/sysconfig/iptables
-then
-    ok
-    info "Rules where added in iptables"
-    systemctl mask firewalld > /dev/null
-    systemctl enable iptables > /dev/null
-    systemctl stop firewalld.service > /dev/null
-    systemctl start iptables.service > /dev/null
-else
-    error
-    info "Could not add rules in the iptables file"
-fi
-
-
-
-fi
