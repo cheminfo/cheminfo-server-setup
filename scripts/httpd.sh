@@ -9,8 +9,18 @@ fi
 
 ok
 
-## Need to add the cheminfo configuration file
+message "We install cheminfo.conf configuration file"
 
+if
+    [ -f "/etc/httpd/conf.d/cheminfo.conf" ]
+then
+    ok
+    info "Configuration file was already present"
+else
+    cp ../configs/cheminfo.conf /etc/httpd/conf.d/cheminfo.conf
+    ok
+    info "Configuration file was copied"
+fi
 
 systemctl enable httpd
 systemctl start httpd
