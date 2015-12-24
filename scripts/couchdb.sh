@@ -41,6 +41,8 @@ installCouchDB() {
 
   message "Cloning couchDB git repository"
 
+  CURRENT=`pwd`
+
   mkdir -p /usr/local/src/
   cd /usr/local/src/
 
@@ -48,7 +50,8 @@ installCouchDB() {
     error
     info "/usr/local/src/couchdb folder exists"
     info "Please delete this folder in order to recompile couchdb"
-    return
+    cd $CURRENT
+    return 1
   fi
 
   if
@@ -59,7 +62,8 @@ installCouchDB() {
     ok
   else
     error
-    return
+    cd $CURRENT
+    return 1
   fi
 
   message "Compiling and installing couchDB"
@@ -72,7 +76,8 @@ installCouchDB() {
     ok
   else
     error
-    return
+    cd $CURRENT
+    return 1
   fi
 
   message "Checking if username couchdb exists"
@@ -91,6 +96,8 @@ installCouchDB() {
   chkconfig --add couchdb
   systemctl enable couchdb
   systemctl start couchdb
+
+  cd $CURRENT
 }
 
 #########
