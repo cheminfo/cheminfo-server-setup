@@ -11,8 +11,6 @@ else
 
     DATA=`cat ../configs/iptables | sed ':a;N;$!ba;s/\n/\\\\n/g'`
 
-echo $DATA
-
     if
         sed -ibcp "/--dport 22/c$DATA" /etc/sysconfig/iptables
     then
