@@ -1,4 +1,14 @@
 
+message "Installing epel-release, git and screen"
+
+if
+    yum --assumeyes install epel-release git screen >> /dev/null
+then
+    ok
+else
+    error
+fi
+
 message "Disabling IPv6"
 
 if
