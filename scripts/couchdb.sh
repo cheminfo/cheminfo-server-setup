@@ -1,11 +1,5 @@
 #!/bin/bash
 
-source ./logging.sh
-
-
-main() {
- installCouchDB
-}
 
 
 ########################
@@ -97,6 +91,22 @@ installCouchDB() {
   systemctl enable couchdb
   systemctl start couchdb
 
+
+  if
+    [ -n "$COUCHDB_ADMIN_PASSWORD" ]
+  then
+    message "Setting admin couchDB password"
+    if
+      curl -X PUT http://localhost:5984/_config/admins/username -d '"$COUCHDB_ADMIN_PASSWORD"'
+    then
+      ok
+    else
+      error
+  else
+    message "Undefined admin couchDB password"
+    error
+  fi
+
   cd $CURRENT
 }
 
@@ -105,5 +115,4 @@ installCouchDB() {
 #########
 
 
-
-main
+installCouchDB

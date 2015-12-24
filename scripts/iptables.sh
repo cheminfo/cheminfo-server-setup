@@ -9,6 +9,11 @@ then
     info "The service was already configured and CHEMINFO is in the file"
 else
 
+    for IP in $SSH_ACCESS; do
+
+    done
+
+
     DATA=`cat ../configs/iptables | sed ':a;N;$!ba;s/\n/\\\\n/g'`
 
     if
