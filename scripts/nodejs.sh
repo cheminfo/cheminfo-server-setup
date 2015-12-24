@@ -18,7 +18,7 @@ installNode() {
     return
   else
     ok
-    info "Node not installed"
+    info "Node is currently not installed"
   fi
 
   message "Checking if username nodejs exists"
