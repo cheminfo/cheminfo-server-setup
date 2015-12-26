@@ -25,6 +25,16 @@ else
     error
 fi
 
+message "Changing default shell for zsh"
+
+if
+    chsh -s /bin/zsh root
+then
+    ok
+else
+    error
+fi
+
 message "Disabling IPv6"
 
 if
@@ -35,4 +45,3 @@ then
 else
     error
 fi
-
