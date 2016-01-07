@@ -102,6 +102,7 @@ installCouchDB() {
       ok
     else
       error
+    fi
   else
     message "Undefined admin couchDB password"
     error
