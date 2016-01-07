@@ -17,7 +17,7 @@ installRestOnCouch() {
     ## Build the config file
     ROC_CONFIG="{\"homeDir\": \"/usr/local/rest-on-couch\""
     if
-      [ -n "$COUCHDB_ADMIN_USERNAME" && -n "$COUCHDB_ADMIN_PASSWORD" ]
+      [ -n "$COUCHDB_ADMIN_USERNAME" ] && [ -n "$COUCHDB_ADMIN_PASSWORD" ]
     then
       ROC_CONFIG=${ROC_CONFIG}",\"username\":\"${COUCHDB_ADMIN_USERNAME}\",\"password\":\"${COUCHDB_ADMIN_PASSWORD}\""
     fi
