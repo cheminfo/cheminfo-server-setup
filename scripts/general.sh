@@ -15,25 +15,16 @@ else
     error
 fi
 
-message "Installing epel-release, git, screen and zsh"
+message "Installing epel-release, git, screen"
 
 if
-    yum --assumeyes install epel-release git screen zsh >> /dev/null
+    yum --assumeyes install epel-release git screen >> /dev/null
 then
     ok
 else
     error
 fi
 
-message "Changing default shell for zsh"
-
-if
-    chsh -s /bin/zsh root
-then
-    ok
-else
-    error
-fi
 
 message "Disabling IPv6"
 
