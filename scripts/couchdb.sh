@@ -93,19 +93,19 @@ installCouchDB() {
 
 
   if
-    [ -n "$COUCHDB_ADMIN_PASSWORD" ]
+    [ -n "$COUCHDB_ADMIN_USERNAME" && -n "$COUCHDB_ADMIN_PASSWORD" ]
   then
-    message "Setting admin couchDB password"
+    message "Setting up CouchDB administrator"
     if
-      curl -X PUT http://localhost:5984/_config/admins/username -d '"$COUCHDB_ADMIN_PASSWORD"'
+      curl -X PUT http://localhost:5984/_config/admins/${COUCHDB_ADMIN_USERNAME} -d "\"${COUCHDB_ADMIN_PASSWORD}\""
     then
       ok
     else
       error
     fi
   else
-    message "Undefined admin couchDB password"
-    error
+    message "Undefined CouchDB administrator. Database will be in admin party mode."
+    warning
   fi
 
   cd $CURRENT
