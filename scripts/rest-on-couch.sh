@@ -37,7 +37,7 @@ installRestOnCouch() {
       crontab -u nodejs > /tmp/crontab.nodejs
       echo '* * * * *  rest-on-couch import' >> /tmp/crontab.nodejs
       crontab -u nodejs /tmp/crontab.nodejs
-      rm /tmp/crontab.nodejs
+      rm -f /tmp/crontab.nodejs
     fi
   fi
 }
