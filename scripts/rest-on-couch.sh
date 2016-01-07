@@ -23,6 +23,16 @@ installRestOnCouch() {
   echo ${ROC_CONFIG} > ~/.rest-on-couch-config
   # TODO clone demo repositories
   exit
+  
+  if
+    crontab -l -u nodejs | grep 'rest-on-couch'
+  then
+    crontab -u nodejs > /tmp/crontab.nodejs
+    echo '* * * * *  rest-on-couch import' >> /tmp/crontab.nodejs
+    crontab -u nodejs /tmp/crontab.nodejs
+    rm /tmp/crontab.nodejs
+  fi
+  
 }
 
 installRestOnCouch
