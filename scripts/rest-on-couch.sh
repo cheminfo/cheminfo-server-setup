@@ -18,7 +18,7 @@ installRestOnCouch() {
   export ROC_CONFIG
 
   ## Commands that need to be run by the nodejs user
-  su -m nodejs
+  su nodejs
   npm install -g rest-on-couch > /dev/null
   echo ${ROC_CONFIG} > ~/.rest-on-couch-config
   # TODO clone demo repositories
