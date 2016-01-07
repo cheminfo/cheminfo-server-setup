@@ -1,7 +1,7 @@
 ## We enforce iptables to prevent any unauthorized access
 ## We only allow access for specific IP addresses
 
-SSH_ACCESS=128.178.0.0/15 84.72.124.142 10.0.0.0/8 192.168.0.0/16 172.16.0.0/12
+SSH_ACCESS="128.178.0.0/15 84.72.124.142 10.0.0.0/8 192.168.0.0/16 172.16.0.0/12"
 
 ## COUCHDB admin credentials
 ## Uncomment to get out of admin party
