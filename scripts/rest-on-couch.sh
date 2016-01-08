@@ -27,7 +27,7 @@ installRestOnCouch() {
     fi
     ROC_CONFIG=${ROC_CONFIG}"}"
     export ROC_CONFIG
-    su nodejs -c 'echo ${ROC_CONFIG} > /usr/local/node/.rest-on-couch-config'
+    execnode 'echo ${ROC_CONFIG} > /usr/local/node/.rest-on-couch-config'
     ok
   fi
   
@@ -36,7 +36,7 @@ installRestOnCouch() {
   then
     message "installing rest-on-couch"
     goto /usr/local/node
-    su nodejs -c 'npm install -g rest-on-couch > /dev/null'
+    execnode 'npm install -g rest-on-couch > /dev/null'
     goback
     ok
   fi
@@ -49,6 +49,16 @@ installRestOnCouch() {
     echo '* * * * *  rest-on-couch import' >> /tmp/crontab.nodejs
     crontab -u nodejs /tmp/crontab.nodejs
     rm -f /tmp/crontab.nodejs
+    ok
+  fi
+  
+  if
+    [ ! -f "/usr/local/pm2/roc-server.json" ]
+  then
+    message "configuring server"
+    execnode "cp ${DIR}/configs/roc-server.json /usr/local/pm2/roc-server.json"
+    execnode "pm2 start /usr/local/pm2/roc-server.json" >/dev/null
+    execnode "pm2 dump" >/dev/null
     ok
   fi
 }
