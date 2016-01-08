@@ -1,0 +1,4 @@
+{
+    "name"       : "roc-server",
+    "script"     : "rest-on-couch server"
+}
