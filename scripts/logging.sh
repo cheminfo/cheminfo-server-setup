@@ -50,5 +50,5 @@ execnode() {
 
 copynode() {
   cp "$1" "$2"
-  chown nodejs "$1"
+  chown nodejs "$2"
 }
