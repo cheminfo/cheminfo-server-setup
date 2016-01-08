@@ -56,7 +56,7 @@ installRestOnCouch() {
     [ ! -f "/usr/local/pm2/roc-server.json" ]
   then
     message "configuring server"
-    execnode "cp ${DIR}/configs/roc-server.json /usr/local/pm2/roc-server.json"
+    copynode "${DIR}/configs/roc-server.json" /usr/local/pm2/roc-server.json
     execnode "pm2 start /usr/local/pm2/roc-server.json" >/dev/null
     execnode "pm2 dump" >/dev/null
     ok
