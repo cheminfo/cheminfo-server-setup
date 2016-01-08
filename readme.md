@@ -15,7 +15,7 @@ Edit and configure ```config.txt```
 
 Finally install the program:
 ```
-bash install.sh
+./install.sh
 ```
 
 
