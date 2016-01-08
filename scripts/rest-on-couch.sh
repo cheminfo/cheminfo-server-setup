@@ -36,7 +36,7 @@ installRestOnCouch() {
   then
     message "installing rest-on-couch"
     goto /usr/local/node
-    execnode 'npm install -g rest-on-couch > /dev/null'
+    execnode 'npm install -g https://github.com/cheminfo/rest-on-couch.git > /dev/null'
     goback
     ok
   fi
