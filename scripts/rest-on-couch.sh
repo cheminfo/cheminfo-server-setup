@@ -42,7 +42,7 @@ installRestOnCouch() {
   fi
     
   if
-    ! crontab -l -u nodejs 2>/dev/null | grep 'rest-on-couch' 2&> /dev/null
+    ! (crontab -l -u nodejs 2>/dev/null | grep 'rest-on-couch' >/dev/null 2>&1
   then
     message "creating crontab entry for import"
     crontab -l -u nodejs > /tmp/crontab.nodejs 2>/dev/null
