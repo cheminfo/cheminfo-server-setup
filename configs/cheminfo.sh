@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ## global custom bashrc
 
 # add Node.js bin directory to the PATH
