@@ -5,7 +5,7 @@
 
 installRestOnCouch() {
   
-  message "installing rest-on-couch"
+  echo "configuring rest-on-couch"
   
   if 
     [ ! -d "/usr/local/rest-on-couch" ]
@@ -27,22 +27,29 @@ installRestOnCouch() {
     fi
     ROC_CONFIG=${ROC_CONFIG}"}"
     export ROC_CONFIG
+    su nodejs -c 'echo ${ROC_CONFIG} > /usr/local/node/.rest-on-couch-config'
+    ok
+  fi
   
+  if
+    [ ! -f "/usr/local/node/latest/bin/rest-on-couch" ]
+  then
+    message "installing rest-on-couch"
     goto /usr/local/node
     su nodejs -c 'npm install -g rest-on-couch > /dev/null'
-    su nodejs -c 'echo ${ROC_CONFIG} > /usr/local/node/.rest-on-couch-config'
     goback
+    ok
+  fi
     
-    if
-      crontab -l -u nodejs | grep 'rest-on-couch'
-    then
-      message "creating crontab entry for import"
-      crontab -u nodejs > /tmp/crontab.nodejs
-      echo '* * * * *  rest-on-couch import' >> /tmp/crontab.nodejs
-      crontab -u nodejs /tmp/crontab.nodejs
-      rm -f /tmp/crontab.nodejs
-      ok
-    fi
+  if
+    ! crontab -l -u nodejs 2>/dev/null | grep 'rest-on-couch' 2&> /dev/null
+  then
+    message "creating crontab entry for import"
+    crontab -l -u nodejs > /tmp/crontab.nodejs
+    echo '* * * * *  rest-on-couch import' >> /tmp/crontab.nodejs
+    crontab -u nodejs /tmp/crontab.nodejs
+    rm -f /tmp/crontab.nodejs
+    ok
   fi
 }
 
