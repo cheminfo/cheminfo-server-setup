@@ -91,7 +91,7 @@ installCouchDB() {
 
 
   if
-    [ -n "$COUCHDB_ADMIN_USERNAME" && -n "$COUCHDB_ADMIN_PASSWORD" ]
+    [ -n "$COUCHDB_ADMIN_USERNAME" ] && [ -n "$COUCHDB_ADMIN_PASSWORD" ]
   then
     message "Setting up CouchDB administrator"
     if
