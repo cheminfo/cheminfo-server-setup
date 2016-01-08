@@ -47,3 +47,8 @@ goback() {
 execnode() {
   su nodejs -c "$1"
 }
+
+copynode() {
+  cp "$1" "$2"
+  chown nodejs "$1"
+}
