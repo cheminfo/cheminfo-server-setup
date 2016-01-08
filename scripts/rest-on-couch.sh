@@ -46,7 +46,7 @@ installRestOnCouch() {
   then
     message "creating crontab entry for import"
     crontab -l -u nodejs > /tmp/crontab.nodejs 2>/dev/null
-    echo '* * * * *  rest-on-couch import' >> /tmp/crontab.nodejs
+    echo '* * * * *  rest-on-couch import --limit 10' >> /tmp/crontab.nodejs
     crontab -u nodejs /tmp/crontab.nodejs
     rm -f /tmp/crontab.nodejs
     ok
