@@ -33,3 +33,13 @@ error() {
   echo -e $ERROR
 }
 
+CURRENT=''
+goto() {
+  CURRENT=`pwd`
+  cd "$1"
+}
+
+goback() {
+  cd "${CURRENT}"
+  CURRENT=''
+}
