@@ -11,7 +11,7 @@ else
     if
         [ ! -z "$SSH_ACCESS" ]
     then
-        DATA="\\n";
+        DATA="";
         for IP in $SSH_ACCESS; do
             DATA=$DATA"-A INPUT -s $IP -p tcp -m tcp --dport 22 -j ACCEPT\\n"
         done
