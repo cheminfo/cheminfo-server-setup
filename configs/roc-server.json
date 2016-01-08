@@ -1,4 +1,5 @@
 {
-    "name"       : "roc-server",
-    "script"     : "rest-on-couch server"
+    "name"   : "roc-server",
+    "script" : "/usr/local/node/latest/bin/rest-on-couch",
+    "args"   : ["server"]
 }
