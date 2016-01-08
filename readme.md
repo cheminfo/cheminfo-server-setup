@@ -15,7 +15,7 @@ wget "https://github.com/cheminfo/cheminfo-config/archive/master.zip"
 Then:
 ```
 unzip master.zip
-cd cheminfo-config-master
+cd cheminfo-server-setup-master
 ```
 
 Edit and configure ```config.txt```
