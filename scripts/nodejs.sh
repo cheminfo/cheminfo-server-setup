@@ -26,7 +26,7 @@ installNode() {
     ok
     info "Username nodejs exists already"
   else
-    useradd nodejs --comment "Node.js Administrator" --home-dir /usr/local/node --user-group --system
+    useradd nodejs --comment "Node.js Administrator" --home-dir /usr/local/node --user-group
     ok
     info "User nodejs was created"
   fi
@@ -34,15 +34,13 @@ installNode() {
   CURRENT=`pwd`
   mkdir -p /usr/local/node && cd /usr/local/node
   NODE_LATEST=$(curl -s https://nodejs.org/dist/index.tab | cut -f 1 | sed -n 2p)
-  curl -s https://nodejs.org/dist/$NODE_LATEST/node-$NODE_LATEST-linux-x64.tar.xz | tar --xz --extract
-  ln -fs node-$NODE_LATEST-linux-x64 latest
-  ln -fs /usr/local/node/latest/bin/node /usr/local/bin/node
-  ln -fs /usr/local/node/latest/bin/npm /usr/local/bin/npm
+  curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x64.tar.xz | tar --xz --extract
+  ln -fs node-${NODE_LATEST}-linux-x64 latest
   chown -R nodejs /usr/local/node
   ok
   message "Installing pm2"
   su nodejs -c "npm install -g pm2 > /dev/null"
-  env PATH=$PATH:/usr/local/node/latest/bin pm2 startup systemd -u nodejs --hp /usr/local/node > /dev/null
+  pm2 startup systemd -u nodejs --hp /usr/local/node > /dev/null
   ok
   cd "$CURRENT"
 }
