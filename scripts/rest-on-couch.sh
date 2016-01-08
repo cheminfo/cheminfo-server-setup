@@ -28,8 +28,10 @@ installRestOnCouch() {
     ROC_CONFIG=${ROC_CONFIG}"}"
     export ROC_CONFIG
   
+    goto /usr/local/node
     su nodejs -c 'npm install -g rest-on-couch > /dev/null'
     su nodejs -c 'echo ${ROC_CONFIG} > /usr/local/node/.rest-on-couch-config'
+    goback
     
     if
       crontab -l -u nodejs | grep 'rest-on-couch'
