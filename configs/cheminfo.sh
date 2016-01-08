@@ -4,7 +4,7 @@
 
 # add Node.js bin directory to the PATH
 if
-  ! echo $PATH | grep "node/latest/bin"
+  ! echo $PATH | grep -q "node/latest/bin"
 then
   PATH=${PATH}:/usr/local/node/latest/bin
 fi
