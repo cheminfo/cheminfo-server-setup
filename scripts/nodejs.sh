@@ -35,6 +35,7 @@ installNode() {
   NODE_LATEST=$(curl -s https://nodejs.org/dist/index.tab | cut -f 1 | sed -n 2p)
   curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x64.tar.xz | tar --xz --extract
   ln -fs node-${NODE_LATEST}-linux-x64 latest
+  ln -fs /usr/local/node/latest/bin/node /usr/bin/node
   chown -R nodejs /usr/local/node
   ok
   message "Installing pm2"
