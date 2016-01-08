@@ -11,7 +11,7 @@ installRestOnCouch() {
     [ ! -d "/usr/local/rest-on-couch" ]
   then
     mkdir -p /usr/local/rest-on-couch
-    chown -r nodejs /usr/local/rest-on-couch
+    chown -R nodejs /usr/local/rest-on-couch
   fi
 
   if 
