@@ -31,8 +31,7 @@ installNode() {
     info "User nodejs was created"
   fi
   message "Installing node"
-  CURRENT=`pwd`
-  mkdir -p /usr/local/node && cd /usr/local/node
+  mkdir -p /usr/local/node && goto /usr/local/node
   NODE_LATEST=$(curl -s https://nodejs.org/dist/index.tab | cut -f 1 | sed -n 2p)
   curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x64.tar.xz | tar --xz --extract
   ln -fs node-${NODE_LATEST}-linux-x64 latest
@@ -42,7 +41,7 @@ installNode() {
   su nodejs -c "npm install -g pm2 > /dev/null"
   pm2 startup systemd -u nodejs --hp /usr/local/node > /dev/null
   ok
-  cd "$CURRENT"
+  goback
 }
 
 installNode
