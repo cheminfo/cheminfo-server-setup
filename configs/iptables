@@ -1,11 +1,5 @@
 ##### CHEMINFO
 
--A INPUT -s 128.178.0.0/15 -p tcp -m tcp --dport ssh -j ACCEPT -m comment --comment "EPFL"
--A INPUT -s 84.72.124.142 -p tcp -m tcp --dport ssh -j ACCEPT -m comment --comment "Temp test"
--A INPUT -s 10.0.0.0/8 -p tcp -m tcp --dport ssh -j ACCEPT -m comment --comment "Temp test"
--A INPUT -s 192.168.0.0/16 -p tcp -m tcp --dport ssh -j ACCEPT -m comment --comment "Temp test"
--A INPUT -s 172.16.0.0/12 -p tcp -m tcp --dport ssh -j ACCEPT -m comment --comment "Temp test"
-
 -A INPUT -m recent --name Unwelcome --update --seconds 86400 -j DROP
 
 -A INPUT -p tcp -m tcp --dport http -j ACCEPT
