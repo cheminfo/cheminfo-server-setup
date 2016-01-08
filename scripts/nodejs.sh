@@ -40,6 +40,8 @@ installNode() {
   message "Installing pm2"
   su nodejs -c "npm install -g pm2 > /dev/null"
   pm2 startup systemd -u nodejs --hp /usr/local/node > /dev/null
+  mkdir -p /usr/local/pm2
+  chown nodejs /usr/local/pm2
   ok
   goback
 }
