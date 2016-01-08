@@ -36,3 +36,13 @@ then
 else
     error
 fi
+
+message "Copying custom bashrc"
+
+if
+    cp "${DIR}/configs/cheminfo.sh" /etc/profile.d/cheminfo.sh
+then
+    ok
+else
+    error
+fi
