@@ -43,3 +43,7 @@ goback() {
   cd "${CURRENT}"
   CURRENT=''
 }
+
+execnode() {
+  su nodejs -c "$1"
+}
