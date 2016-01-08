@@ -35,16 +35,14 @@ installCouchDB() {
 
   message "Cloning couchDB git repository"
 
-  CURRENT=`pwd`
-
   mkdir -p /usr/local/src/
-  cd /usr/local/src/
+  goto /usr/local/src/
 
   if [ -d "/usr/local/src/couchdb" ]; then
     error
     info "/usr/local/src/couchdb folder exists"
     info "Please delete this folder in order to recompile couchdb"
-    cd $CURRENT
+    goback
     return 1
   fi
 
@@ -56,7 +54,7 @@ installCouchDB() {
     ok
   else
     error
-    cd $CURRENT
+    goback
     return 1
   fi
 
@@ -70,7 +68,7 @@ installCouchDB() {
     ok
   else
     error
-    cd $CURRENT
+    goback
     return 1
   fi
 
@@ -108,7 +106,7 @@ installCouchDB() {
     warning
   fi
 
-  cd $CURRENT
+  goback
 }
 
 #########
