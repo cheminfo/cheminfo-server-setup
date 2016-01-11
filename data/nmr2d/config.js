@@ -6,7 +6,7 @@ module.exports = {
             parent: [],
             name: [],
             molecule: [],
-            ir: []
+            nmr: []
         };
     },
     customDesign: {
@@ -16,6 +16,6 @@ module.exports = {
     },
     rights: {
         read: ['anonymous'],
-        create: ['ir@cheminfo.org']
+        create: ['nmr@cheminfo.org']
     }
 };

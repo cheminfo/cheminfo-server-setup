@@ -5,10 +5,10 @@ const processMolfile = require('../../processMolfile');
 
 module.exports = {
     getID: function (filename, contents) {
-        return path.parse(filename).name;
+        return filename;
     },
     getOwner: function (filename, contents) {
-        return 'ir@cheminfo.org';
+        return 'nmr@cheminfo.org';
     },
     parse: function (filename, contents) {
         return {

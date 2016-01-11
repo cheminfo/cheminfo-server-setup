@@ -1,20 +1,18 @@
 'use strict';
 
-const path = require('path');
+const processNmr = require('../../processNmr');
 
 module.exports = {
     getID: function (filename, contents) {
-        return path.parse(filename).name;
+        return filename;
     },
     getOwner: function (filename, contents) {
-        return 'ir@cheminfo.org';
+        return 'nmr@cheminfo.org';
     },
     parse: function (filename, contents) {
         return {
-            jpath: 'ir',
-            data: {
-                reference: path.parse(filename).name
-            },
+            jpath: 'nmr',
+            data: processNmr(contents.toString()),
             type: 'jcamp',
             content_type: 'chemical/x-jcamp-dx'
         };
