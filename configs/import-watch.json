@@ -1,0 +1,5 @@
+{
+  "name"   : "roc-import",
+  "script" : "/usr/local/node/latest/lib/node_modules/rest-on-couch/bin/rest-on-couch-import.js",
+  "args": ["--watch"]
+}

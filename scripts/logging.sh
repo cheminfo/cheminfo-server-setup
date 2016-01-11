@@ -52,3 +52,8 @@ copynode() {
   cp "$1" "$2"
   chown nodejs "$2"
 }
+
+copydirnode() {
+  cp -r "$1" "$2"
+  chown -R nodejs "$2"
+}

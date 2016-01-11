@@ -4,14 +4,15 @@
 #########################################
 
 installRestOnCouch() {
-  
+  ROC_HOME_DIR="/usr/local/rest-on-couch"
   echo "configuring rest-on-couch"
   
   if 
     [ ! -d "/usr/local/rest-on-couch" ]
   then
-    mkdir -p /usr/local/rest-on-couch
-    chown -R nodejs /usr/local/rest-on-couch
+    mkdir -p ${ROC_HOME_DIR}
+    chown -R nodejs ${ROC_HOME_DIR}
+    copydirnode "${DIR}/data" ${ROC_DIR_HOME}
   fi
 
   if 
@@ -19,7 +20,7 @@ installRestOnCouch() {
   then
     ## Build the config file
     message "building the config file"
-    ROC_CONFIG="{\"homeDir\": \"/usr/local/rest-on-couch\""
+    ROC_CONFIG="{\"homeDir\": \"${ROC_HOME_DIR}\""
     if
       [ -n "$COUCHDB_ADMIN_USERNAME" ] && [ -n "$COUCHDB_ADMIN_PASSWORD" ]
     then
@@ -41,16 +42,16 @@ installRestOnCouch() {
     ok
   fi
     
-  if
-    ! (crontab -l -u nodejs 2>/dev/null | grep -q 'rest-on-couch')
-  then
-    message "creating crontab entry for import"
-    crontab -l -u nodejs > /tmp/crontab.nodejs 2>/dev/null
-    echo '* * * * *  /usr/local/node/latest/bin/rest-on-couch import --limit 100' >> /tmp/crontab.nodejs
-    crontab -u nodejs /tmp/crontab.nodejs
-    rm -f /tmp/crontab.nodejs
-    ok
-  fi
+#  if
+#    ! (crontab -l -u nodejs 2>/dev/null | grep -q 'rest-on-couch')
+#  then
+#    message "creating crontab entry for import"
+#    crontab -l -u nodejs > /tmp/crontab.nodejs 2>/dev/null
+#    echo '* * * * *  /usr/local/node/latest/bin/rest-on-couch import --limit 100' >> /tmp/crontab.nodejs
+#    crontab -u nodejs /tmp/crontab.nodejs
+#    rm -f /tmp/crontab.nodejs
+#    ok
+#  fi
   
   if
     [ ! -f "/usr/local/pm2/roc-server.json" ]
@@ -58,6 +59,16 @@ installRestOnCouch() {
     message "configuring server"
     copynode "${DIR}/configs/roc-server.json" /usr/local/pm2/roc-server.json
     execnode "pm2 start /usr/local/pm2/roc-server.json" >/dev/null
+    execnode "pm2 dump" >/dev/null
+    ok
+  fi
+
+  if
+    [ ! -f "/usr/local/pm2/roc-import.json" ]
+  then
+    message "configuring import service"
+    copynode "${DIR}/configs/roc-import.json" /usr/local/pm2/roc-import.json
+    execnode "pm2 start /usr/local/pm2/roc-import.json" >/dev/null
     execnode "pm2 dump" >/dev/null
     ok
   fi
