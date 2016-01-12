@@ -5,7 +5,7 @@ const processMolfile = require('../../processMolfile');
 
 module.exports = {
     getID: function (filename, contents) {
-        return filename;
+        return path.parse(filename).name;
     },
     getOwner: function (filename, contents) {
         return 'nmr@cheminfo.org';
