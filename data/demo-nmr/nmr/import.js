@@ -1,6 +1,7 @@
 'use strict';
 
 const processNmr = require('../../processNmr');
+const path = require('path');
 
 module.exports = {
     getID: function (filename, contents) {
