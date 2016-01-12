@@ -61,7 +61,7 @@ installRestOnCouch() {
   then
     message "configuring server"
     copynode "${DIR}/configs/roc-server.json" /usr/local/pm2/roc-server.json
-    execnode "pm2 start /usr/local/pm2/roc-server.json" >/dev/null
+    execnode "pm2 startOrRestart /usr/local/pm2/roc-server.json" >/dev/null
     execnode "pm2 dump" >/dev/null
     ok
   fi
@@ -71,7 +71,7 @@ installRestOnCouch() {
   then
     message "configuring import service"
     copynode "${DIR}/configs/roc-import.json" /usr/local/pm2/roc-import.json
-    execnode "pm2 start /usr/local/pm2/roc-import.json" >/dev/null
+    execnode "pm2 startOrRestart /usr/local/pm2/roc-import.json" >/dev/null
     execnode "pm2 dump" >/dev/null
     ok
   fi
