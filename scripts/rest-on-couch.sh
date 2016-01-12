@@ -4,15 +4,16 @@
 #########################################
 
 installRestOnCouch() {
-  ROC_HOME_DIR="/usr/local/rest-on-couch"
   echo "configuring rest-on-couch"
   
   if 
-    [ ! -d "/usr/local/rest-on-couch" ]
+    [ ! -d "${ROC_HOME_DIR}" ]
   then
+    message "copy demo data"
     mkdir -p ${ROC_HOME_DIR}
     chown -R nodejs ${ROC_HOME_DIR}
-    copydirnode "${DIR}/data" ${ROC_DIR_HOME}
+    copydirnode "${DIR}/data" ${ROC_HOME_DIR}
+    ok
   fi
 
   if 
@@ -33,11 +34,13 @@ installRestOnCouch() {
   fi
   
   if
-    [ ! -f "/usr/local/node/latest/bin/rest-on-couch" ]
+    [ ! -d "/usr/local/pm2/rest-on-couch" ]
   then
     message "installing rest-on-couch"
-    goto /usr/local/node
-    execnode 'npm install -g https://github.com/cheminfo/rest-on-couch.git > /dev/null'
+    goto /usr/local/pm2
+    execnode 'git clone https://github.com/cheminfo/rest-on-couch.git > /dev/null'
+    cd rest-on-couch
+    execnode 'npm install --production > /dev/null'
     goback
     ok
   fi
