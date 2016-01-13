@@ -32,7 +32,8 @@ installNode() {
     info "User nodejs was created"
   fi
   message "Installing node"
-  mkdir -p /usr/local/node && goto /usr/local/node
+  mkdir -p /usr/local/node
+  goto /usr/local/node
   NODE_LATEST=$(curl -s https://nodejs.org/dist/index.tab | cut -f 1 | sed -n 2p)
   curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x64.tar.xz | tar --xz --extract
   ln -fs node-${NODE_LATEST}-linux-x64 latest
@@ -40,8 +41,9 @@ installNode() {
   chown -R nodejs /usr/local/node
   ok
   message "Installing pm2"
-  su nodejs -c "npm install -g pm2 > /dev/null"
+  su nodejs -c "npm install -g pm2 >/dev/null 2>&1"
   pm2 startup systemd -u nodejs --hp /usr/local/node > /dev/null
+  pm2 kill # for some reason there is a PM2 process running as root
   mkdir -p /usr/local/pm2
   chown nodejs /usr/local/pm2
   ok
