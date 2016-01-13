@@ -10,8 +10,10 @@ module.exports = {
         };
     },
     customDesign: {
-        version: 1,
-        views: {},
+        version: 2,
+        views: {
+            entryByMW: require('../views').entryByMW
+        },
         updates: {}
     },
     rights: {
