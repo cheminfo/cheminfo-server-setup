@@ -44,25 +44,16 @@ installRestOnCouch() {
     goback
     ok
   fi
-    
-#  if
-#    ! (crontab -l -u nodejs 2>/dev/null | grep -q 'rest-on-couch')
-#  then
-#    message "creating crontab entry for import"
-#    crontab -l -u nodejs > /tmp/crontab.nodejs 2>/dev/null
-#    echo '* * * * *  /usr/local/node/latest/bin/rest-on-couch import --limit 100' >> /tmp/crontab.nodejs
-#    crontab -u nodejs /tmp/crontab.nodejs
-#    rm -f /tmp/crontab.nodejs
-#    ok
-#  fi
   
   if
     [ ! -f "/usr/local/pm2/roc-server.json" ]
   then
     message "configuring server"
+    goto /usr/local/node
     copynode "${DIR}/configs/roc-server.json" /usr/local/pm2/roc-server.json
     execnode "pm2 startOrRestart /usr/local/pm2/roc-server.json" >/dev/null
     execnode "pm2 dump" >/dev/null
+    goback
     ok
   fi
 
@@ -70,9 +61,11 @@ installRestOnCouch() {
     [ ! -f "/usr/local/pm2/roc-import.json" ]
   then
     message "configuring import service"
+    goto /usr/local/node
     copynode "${DIR}/configs/roc-import.json" /usr/local/pm2/roc-import.json
     execnode "pm2 startOrRestart /usr/local/pm2/roc-import.json" >/dev/null
     execnode "pm2 dump" >/dev/null
+    goback
     ok
   fi
 }
