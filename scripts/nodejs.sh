@@ -27,6 +27,7 @@ installNode() {
     info "Username nodejs exists already"
   else
     useradd nodejs --comment "Node.js Administrator" --home-dir /usr/local/node --user-group
+    chmod 755 /usr/local/node
     ok
     info "User nodejs was created"
   fi
