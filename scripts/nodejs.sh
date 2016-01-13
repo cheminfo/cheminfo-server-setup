@@ -43,7 +43,7 @@ installNode() {
   message "Installing pm2"
   su nodejs -c "npm install -g pm2 >/dev/null 2>&1"
   pm2 startup systemd -u nodejs --hp /usr/local/node > /dev/null
-  pm2 kill # for some reason there is a PM2 process running as root
+  pm2 kill >/dev/null # for some reason there is a PM2 process running as root
   mkdir -p /usr/local/pm2
   chown nodejs /usr/local/pm2
   ok
