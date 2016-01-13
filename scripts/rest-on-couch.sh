@@ -12,7 +12,7 @@ installRestOnCouch() {
     message "copy demo data"
     mkdir -p "${ROC_HOME_DIR}"
     chown -R nodejs "${ROC_HOME_DIR}"
-    copydirnode "${DIR}/data/*" "${ROC_HOME_DIR}"
+    copydirnode ${DIR}/data/* "${ROC_HOME_DIR}"
     ok
   fi
 
