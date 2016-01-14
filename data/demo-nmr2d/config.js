@@ -10,7 +10,7 @@ module.exports = {
         };
     },
     customDesign: {
-        version: 2,
+        version: 3,
         views: {
             entryByMW: require('../views').entryByMW
         },
