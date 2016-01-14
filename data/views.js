@@ -11,7 +11,8 @@ module.exports = {
                     emit(mol.mf.mw);
                 }
             }
-        }
+        },
+        type: 'number'
     }
 };
 
