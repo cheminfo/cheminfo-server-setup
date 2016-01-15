@@ -33,6 +33,16 @@ error() {
   echo -e $ERROR
 }
 
+printResult() {
+        if
+                [ $? -eq 0 ]
+        then
+                ok
+        else
+                error
+        fi
+}
+
 CURRENT=''
 goto() {
   CURRENT=`pwd`
