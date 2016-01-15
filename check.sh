@@ -31,7 +31,7 @@ su nodejs -c "pm2 status" | grep "roc-import" | grep -q "online"
 printResult
 
 message "Checking if couchDB is running as user couchdb"
-ps aux | grep -v "grep" | grep "^couchdb" | grep -q "nodejs"
+ps aux | grep -v "grep" | grep -q "^couchdb"
 printResult
 
 message "Checking if apache (httpd) is running as user apache"
