@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -9,35 +8,55 @@ source ../config.txt
 
 source ./logging.sh
 
-message "Checking if node is present in /usr/bin/node"
+message "node is present in /usr/bin/node"
 whereis node | grep -q "/usr/bin/node"
 printResult
 
 
-message "Checking if node is version 5.x.x"
+message "node is version 5.x.x"
 node -v | grep -q "v5"
 printResult
 
-message "Checking if pm2 is running as user nodejs"
+message "pm2 is running as user nodejs"
 ps aux | grep -v "grep" | grep "PM2" | grep -q "nodejs"
 printResult
 
-message "Checking if roc-server is running on pm2"
+message "roc-server is running on pm2"
 su nodejs -c "pm2 status" | grep "roc-server" | grep -q "online"
 printResult
 
-message "Checking if roc-import is running on pm2"
+message "roc-import is running on pm2"
 su nodejs -c "pm2 status" | grep "roc-import" | grep -q "online"
 printResult
 
-message "Checking if couchDB is running as user couchdb"
+message "couchDB is running as user couchdb"
 ps aux | grep -v "grep" | grep -q "^couchdb"
 printResult
 
-message "Checking if apache (httpd) is running as user apache"
+message "couchDB answer on http://127.0.0.1:5984/ and is version 1.6.1"
+curl -sf http://127.0.0.1:5984/ | grep -q "1.6.1"
+printResult
+
+message "couchDB database demo-ir exists"
+curl -sf http://127.0.0.1:5984/demo-ir/ | grep -q "demo-ir"
+printResult
+
+message "couchDB database demo-nmr exists"
+curl -sf "http://127.0.0.1:5984/demo-nmr/" | grep -q "demo-nmr"
+printResult
+
+message "couchDB database demo-nmr2d exists"
+curl -sf http://127.0.0.1:5984/demo-nmr2d/ | grep -q "demo-nmr2d"
+printResult
+
+message "apache (httpd) is running as user apache"
 ps aux | grep -v "grep" | grep "^apache" | grep -q "httpd"
 printResult
 
-message "Checking if iptables is running"
+message "iptables is running"
 systemctl status iptables | grep -q "Active: active"
+printResult
+
+message "$ROC_HOME_DIR folder exists"
+[ -d "$ROC_HOME_DIR" ]
 printResult
