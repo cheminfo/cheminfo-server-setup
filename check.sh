@@ -100,5 +100,10 @@ printResult
 printLs "/usr/local/rest-on-couch"
 
 checkDiskSpace
+[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && df -h
 
 freeMemory
+[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && top -n1 -o %MEM
+
+freeProc
+[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && top -n1
