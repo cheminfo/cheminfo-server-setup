@@ -19,7 +19,18 @@ Finally install the program:
 ```
 
 
+## Debug
 
+In order to have a global overview about what is running there is a script `check.sh`. Just go in this github folder and enter
+
+```
+./check.sh -q
+```
+
+If you have any mistakes please submit us the full report
+```
+./check.sh -d > report.txt
+```
 
 
 
