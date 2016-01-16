@@ -30,6 +30,9 @@ else
         systemctl mask firewalld > /dev/null
         systemctl enable iptables > /dev/null
         systemctl stop firewalld.service > /dev/null
+        echo "options xt_recent ip_list_tot=4000 ip_pkt_list_tot=20" >> /etc/modprobe.d/options.conf
+        modprobe -r xt_recent
+        modprobe xt_recent 
         systemctl start iptables.service > /dev/null
     else
         error
