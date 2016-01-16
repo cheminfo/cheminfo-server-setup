@@ -32,6 +32,20 @@ do
 	esac
 done
 
+message "required users exists"
+if
+	grep -q "^nodejs" /etc/passwd &&
+	grep -q "^couchdb" /etc/passwd &&
+	grep -q "^apache" /etc/passwd
+then
+	ok
+	[ $DEBUG -eq 1 ] && cat /etc/passwd
+else
+	error
+	cat /etc/passwd
+fi	
+
+
 message "node is present in /usr/bin/node"
 whereis node | grep -q "/usr/bin/node"
 printResult
@@ -46,11 +60,7 @@ message "pm2 is running as user nodejs"
 ps aux | grep -v "grep" | grep "PM2" | grep -q "nodejs"
 printResult
 printLs "/usr/local/pm2"
-if
-	[ $DEBUG -eq 1 ]
-then
-	su nodejs -c "pm2 status"
-fi
+[ $DEBUG -eq 1 ] && su nodejs -c "pm2 status"
 
 message "roc-server is running on pm2"
 su nodejs -c "pm2 status" | grep "roc-server" | grep -q "online"
