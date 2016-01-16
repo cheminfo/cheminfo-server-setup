@@ -50,7 +50,7 @@ printLs() {
 	if
 		[ $status -ne 0 ] || [ "$DEBUG" -eq 1 ] && [ "$DEBUG" -ne -1 ]
 	then
-		find "$1"
+		ls -lR "$1"
 	fi
 	return $status
 }
