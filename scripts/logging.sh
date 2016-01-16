@@ -51,6 +51,13 @@ printLs() {
 	fi
 }
 
+printCat() {
+	if
+		[ $? -ne 0 ] || [ $DEBUG -eq 1 ]
+	then
+		cat "$1"
+	fi
+}
 
 CURRENT=''
 goto() {
