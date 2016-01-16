@@ -7,6 +7,7 @@ cd $DIR/scripts
 source ../config.txt
 
 source ./logging.sh
+source ./monitor.sh
 
 DEBUG=0
 
@@ -97,3 +98,7 @@ message "$ROC_HOME_DIR folder exists"
 [ -d "$ROC_HOME_DIR" ]
 printResult
 printLs "/usr/local/rest-on-couch"
+
+checkDiskSpace
+
+freeMemory
