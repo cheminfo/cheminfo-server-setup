@@ -32,7 +32,7 @@ do
 	esac
 done
 
-message "required users exists"
+message "users nodejs, couchdb and apache exists"
 if
 	grep -q "^nodejs" /etc/passwd &&
 	grep -q "^couchdb" /etc/passwd &&
