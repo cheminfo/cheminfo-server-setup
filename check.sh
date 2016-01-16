@@ -8,6 +8,29 @@ source ../config.txt
 
 source ./logging.sh
 
+DEBUG=0
+
+for i in "$@"
+do
+	case $i in
+		-d|--debug)
+			DEBUG=1
+    			shift 
+		;;
+		-q|--quiet)
+			DEBUG=-1
+    			shift 
+		;;
+		-h|--help)
+			echo "-d | --debug  Always put the debug information"
+			echo "-q | --quiet  Global overview even if errors"
+			exit
+		;;
+		*)
+		echo "$i : unknown option"
+	esac
+done
+
 message "node is present in /usr/bin/node"
 whereis node | grep -q "/usr/bin/node"
 printResult
@@ -22,6 +45,11 @@ message "pm2 is running as user nodejs"
 ps aux | grep -v "grep" | grep "PM2" | grep -q "nodejs"
 printResult
 printLs "/usr/local/pm2"
+if
+	[ $DEBUG -eq 1 ]
+then
+	su nodejs -c "pm2 status"
+fi
 
 message "roc-server is running on pm2"
 su nodejs -c "pm2 status" | grep "roc-server" | grep -q "online"
@@ -35,6 +63,7 @@ message "couchDB is running as user couchdb"
 ps aux | grep -v "grep" | grep -q "^couchdb"
 printResult
 printLs "/var/lib/couchdb"
+printStatus "couchdb"
 
 message "couchDB answer on http://127.0.0.1:5984/ and is version 1.6.1"
 curl -sf http://127.0.0.1:5984/ | grep -q "1.6.1"
@@ -56,11 +85,13 @@ message "apache (httpd) is running as user apache"
 ps aux | grep -v "grep" | grep "^apache" | grep -q "httpd"
 printResult
 printLs "/etc/httpd/conf.d"
+printStatus httpd
 
 message "iptables is running"
 systemctl status iptables | grep -q "Active: active"
 printResult
 printCat "/etc/sysconfig/iptables"
+printStatus iptables
 
 message "$ROC_HOME_DIR folder exists"
 [ -d "$ROC_HOME_DIR" ]

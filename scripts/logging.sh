@@ -34,29 +34,45 @@ error() {
 }
 
 printResult() {
+	status=$?
         if
-                [ $? -eq 0 ]
+                [ $status -eq 0 ]
         then
                 ok
         else
                 error
         fi
+	return $status
 }
 
 printLs() {
+	status=$?
 	if
-		[ $? -ne 0 ] || [ $DEBUG -eq 1 ]
+		[ $status -ne 0 ] || [ "$DEBUG" -eq 1 ] && [ "$DEBUG" -ne -1 ]
 	then
 		find "$1"
 	fi
+	return $status
 }
 
 printCat() {
+	status=$?
 	if
-		[ $? -ne 0 ] || [ $DEBUG -eq 1 ]
+		[ $status -ne 0 ] || [ "$DEBUG" -eq 1 ] && [ "$DEBUG" -ne -1 ]
 	then
 		cat "$1"
 	fi
+	return $status
+}
+
+printStatus() {
+	status=$?
+	if
+		[ $status -ne 0 ] || [ "$DEBUG" -eq 1 ] && [ "$DEBUG" -ne -1 ]
+	then
+		systemctl status $1
+	fi
+	return $status
 }
 
 CURRENT=''
