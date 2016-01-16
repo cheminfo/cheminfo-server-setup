@@ -55,11 +55,14 @@ printResult
 message "apache (httpd) is running as user apache"
 ps aux | grep -v "grep" | grep "^apache" | grep -q "httpd"
 printResult
+printLs "/etc/httpd/conf.d"
 
 message "iptables is running"
 systemctl status iptables | grep -q "Active: active"
 printResult
+printCat "/etc/sysconfig/iptables"
 
 message "$ROC_HOME_DIR folder exists"
 [ -d "$ROC_HOME_DIR" ]
 printResult
+printLs "/usr/local/rest-on-couch"
