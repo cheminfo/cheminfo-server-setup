@@ -45,11 +45,12 @@ printResult() {
 
 printLs() {
 	if
-		[ $? -ne 0 ]
+		[ $? -ne 0 ] || [ $DEBUG -eq 1 ]
 	then
 		find "$1"
 	fi
 }
+
 
 CURRENT=''
 goto() {
