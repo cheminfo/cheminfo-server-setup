@@ -43,6 +43,14 @@ printResult() {
         fi
 }
 
+printLs() {
+	if
+		[ $? -ne 0 ]
+	then
+		find "$1"
+	fi
+}
+
 CURRENT=''
 goto() {
   CURRENT=`pwd`
