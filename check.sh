@@ -66,7 +66,8 @@ message "pm2 is running as user nodejs"
 ps aux | grep -v "grep" | grep "PM2" | grep -q "nodejs"
 printResult
 printLs "/usr/local/pm2"
-[ $DEBUG -eq 1 ] && su nodejs -c "pm2 status"
+[ $DEBUG -eq 1 ] && echo "Checking pm2 status" && su nodejs -c "pm2 status"
+[ $DEBUG -eq 1 ] && echo "Checking all the processes having pm2" && ps aux | grep pm2
 
 message "roc-server is running on pm2"
 su nodejs -c "pm2 status" | grep "roc-server" | grep -q "online"
@@ -84,6 +85,10 @@ printStatus "couchdb"
 
 message "couchDB answer on http://127.0.0.1:5984/ and is version 1.6.1"
 curl -sf http://127.0.0.1:5984/ | grep -q "1.6.1"
+printResult
+
+message "couchDB answer on http://127.0.0.1/restoncouch/ and is version 1.6.1"
+curl -sfL http://127.0.0.1/rest-on-couch/ | grep -q "1.6.1"
 printResult
 
 message "couchDB database demo-ir exists"
