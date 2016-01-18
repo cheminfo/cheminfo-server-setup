@@ -1,3 +1,5 @@
+You should have a fresh install of CentOS 7 in ENGLISH !
+
 
 Create an empty folder, go in this folder and run the following command:
 
