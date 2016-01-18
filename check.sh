@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR/scripts
@@ -32,6 +33,11 @@ do
 	esac
 done
 
+
+[ $DEBUG -eq 1 ] && uname -a
+[ $DEBUG -eq 1 ] && cat /etc/redhat-release
+
+
 message "users nodejs, couchdb and apache exists"
 if
 	grep -q "^nodejs" /etc/passwd &&
@@ -42,7 +48,7 @@ then
 	[ $DEBUG -eq 1 ] && cat /etc/passwd
 else
 	error
-	cat /etc/passwd
+	[ "$DEBUG" -ne -1 ] && cat /etc/passwd
 fi	
 
 
@@ -103,6 +109,7 @@ systemctl status iptables | grep -q "Active: active"
 printResult
 printCat "/etc/sysconfig/iptables"
 printStatus iptables
+[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && [ "$DEBUG" -ne -1 ] && ifconfig
 
 message "$ROC_HOME_DIR folder exists"
 [ -d "$ROC_HOME_DIR" ]
@@ -110,10 +117,10 @@ printResult
 printLs "/usr/local/rest-on-couch"
 
 checkDiskSpace
-[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && df -h
+[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && [ "$DEBUG" -ne -1 ] && df -h
 
 freeMemory
-[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && top -n1 -o %MEM
+[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && [ "$DEBUG" -ne -1 ] && top -n1 -o %MEM
 
 freeProc
-[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && top -n1
+[ $? -ne 0 ] || [ $DEBUG -eq 1 ] && [ "$DEBUG" -ne -1 ] && top -n1
