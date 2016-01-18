@@ -22,5 +22,12 @@ else
     info "Configuration file was copied"
 fi
 
-systemctl enable httpd
-systemctl start httpd
+if
+	[ $REDHAT_RELEASE -eq 7 ]
+then
+       	systemctl start httpd.service > /dev/null
+       	systemctl enable httpd.service > /dev/null
+else
+	service httpd start > /dev/null
+	chkconfig httpd on > /dev/null
+fi

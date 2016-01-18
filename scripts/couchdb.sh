@@ -86,8 +86,15 @@ installCouchDB() {
 
   mv /etc/rc.d/couchdb /etc/init.d/couchdb
   chkconfig --add couchdb
-  systemctl enable couchdb
-  systemctl start couchdb
+	if
+		[ $REDHAT_RELEASE -eq 7 ]
+	then
+		systemctl enable couchdb
+		systemctl start couchdb
+	else
+		chkconfig couchdb on > /dev/null
+		service couchdb start > /dev/null
+	fi
 
 
   if

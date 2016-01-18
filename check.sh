@@ -110,7 +110,13 @@ printLs "/etc/httpd/conf.d"
 printStatus httpd
 
 message "iptables is running"
-systemctl status iptables | grep -q "Active: active"
+if
+	[ $REDHAT_RELEASE -eq 7 ]
+then
+	systemctl status iptables | grep -q "Active: active"
+else
+	service iptables status | grep -qv "Firewall is not running"
+fi
 printResult
 printCat "/etc/sysconfig/iptables"
 printStatus iptables

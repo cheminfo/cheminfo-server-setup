@@ -27,13 +27,26 @@ else
     then
         ok
         info "Rules where added in iptables"
-        systemctl mask firewalld > /dev/null
-        systemctl enable iptables > /dev/null
-        systemctl stop firewalld.service > /dev/null
+	if
+		[ $REDHAT_RELEASE -eq 7 ]
+	then
+        	systemctl mask firewalld > /dev/null
+		systemctl enable iptables > /dev/null
+		systemctl stop firewalld.service > /dev/null
+	else
+		chkconfig iptables on > /dev/null
+	fi
+
         echo "options xt_recent ip_list_tot=4000 ip_pkt_list_tot=20" >> /etc/modprobe.d/options.conf
         modprobe -r xt_recent
         modprobe xt_recent 
-        systemctl start iptables.service > /dev/null
+	if
+		[ $REDHAT_RELEASE -eq 7 ]
+	then
+        	systemctl start iptables.service > /dev/null
+	else
+		service iptables start > /dev/null
+	fi
     else
         error
         info "Could not add rules in the iptables file"

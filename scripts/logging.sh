@@ -70,7 +70,13 @@ printStatus() {
 	if
 		[ $status -ne 0 ] || [ "$DEBUG" -eq 1 ] && [ "$DEBUG" -ne -1 ]
 	then
-		systemctl status $1
+		if
+			[ $REDHAT_RELEASE -eq 7 ]
+		then
+       	 		systemctl status $1
+		else
+			service $1 status
+		fi
 	fi
 	return $status
 }
