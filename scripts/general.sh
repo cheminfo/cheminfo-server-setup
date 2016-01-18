@@ -15,10 +15,10 @@ else
     error
 fi
 
-message "Installing epel-release, git, screen"
+message "Installing epel-release, git, screen, xz"
 
 if
-    yum --assumeyes install epel-release git screen >> /dev/null
+    yum --assumeyes install epel-release git screen xz >> /dev/null
 then
     ok
 else
