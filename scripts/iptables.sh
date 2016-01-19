@@ -34,6 +34,7 @@ else
 		systemctl enable iptables > /dev/null
 		systemctl stop firewalld.service > /dev/null
 	else
+		service iptables stop > /dev/null
 		chkconfig iptables on > /dev/null
 	fi
 
