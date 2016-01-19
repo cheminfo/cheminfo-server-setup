@@ -33,18 +33,31 @@ installCouchDB() {
     info "js not yet installed"
 
     message "Installing js"
-    mkdir -p /usr/local/src/
-    goto /usr/local/src/
-    curl -s http://ftp.mozilla.org/pub/js/js-1.8.0-rc1.tar.gz | tar -xz
-    cd js/src
-    make BUILD_OPT=1 -f Makefile.ref > /dev/null &&
-    make BUILD_OPT=1 JS_DIST=/usr/local -f Makefile.ref export > /dev/null
-    if [ $? -eq 0 ]; then 
-      ok
-    else
-      error
+    if
+      [ $REDHAT_RELEASE -eq 7 ]
+    then
+      if
+        yum -asumeyes install js-devel > /dev/null
+      then
+        ok
+      else
+        error
+      fi
+    else 
+      mkdir -p /usr/local/src/
+      goto /usr/local/src/
+      curl -s http://ftp.mozilla.org/pub/js/js185-1.0.0.tar.gz | tar -xz
+      cd js-1.8.5/js/src
+      ./configure > /dev/null &&
+      make > /dev/null &&
+      make install > /dev/null 
+      if [ $? -eq 0 ]; then 
+        ok
+      else
+        error
+      fi
+      goback
     fi
-    goback
   fi
 
 
