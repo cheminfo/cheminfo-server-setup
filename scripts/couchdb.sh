@@ -8,6 +8,37 @@ COUCHDB_FOLDER="apache-couchdb-1.6.1"
 
 installCouchDB() {
 
+
+  message "Checking if js is installed"
+  if js -h 2>&1 | grep -qi "JavaScript"; then
+    if js -h 2>&1 | grep -q "1\.8\.0"; then
+      ok
+      info "Already installed and version is ok"
+    else
+      error
+      info "js version is not 1.8.0, please remove it"
+    fi
+  else
+    ok
+    info "js not yet installed"
+
+    message "Installing js"
+    mkdir -p /usr/local/src/
+    goto /usr/local/src/
+    curl -s http://ftp.mozilla.org/pub/js/js-1.8.0-rc1.tar.gz | tar -xz
+    cd js/src
+    make BUILD_OPT=1 -f Makefile.ref > /dev/null &&
+    make BUILD_OPT=1 JS_DIST=/usr/local -f Makefile.ref export > /dev/null
+    if [ $? -eq 0 ]; then 
+      ok
+    else
+      error
+    fi
+    goback
+  fi
+
+
+
   message "Checking if couchDB is installed"
   if couchdb -V &> /dev/null; then
     if couchdb -V | grep -q "1\.6\.1"; then
@@ -26,7 +57,7 @@ installCouchDB() {
 
   message "Installing required package for couchDB compilation"
   if
-    yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man js-devel libicu-devel libtool perl-Test-Harness > /dev/null
+    yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness > /dev/null
   then
     ok
   else

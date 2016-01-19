@@ -13,9 +13,9 @@ cd $DIR/scripts
 source ../config.txt
 
 source ./logging.sh
-source ./general.sh
-source ./iptables.sh
-source ./nodejs.sh
+#source ./general.sh
+#source ./iptables.sh
+#source ./nodejs.sh
 source ./couchdb.sh
-source ./httpd.sh
-source ./rest-on-couch.sh
+#source ./httpd.sh
+#source ./rest-on-couch.sh
