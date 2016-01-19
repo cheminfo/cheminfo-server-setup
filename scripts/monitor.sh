@@ -19,7 +19,7 @@ function freeMemory() {
 
 function freeProc() {
 	message "processor activity"
-	usedProc=`top -bn2 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | tail -1 | awk '{print int(100 - $1)}'`
+	usedProc=`top -bn2 | grep "Cpu(s)" | sed "s/.* \([0-9.]*\).id.*/\1/" | tail -1 | awk '{print int(100 - $1)}'`
 	if
 		[ $usedProc -le $USED_PROC_ALERT ]
 	then
