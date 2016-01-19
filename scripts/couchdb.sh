@@ -9,6 +9,16 @@ COUCHDB_FOLDER="apache-couchdb-1.6.1"
 installCouchDB() {
 
 
+  message "Installing required package for js and couchDB compilation"
+  if
+    yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness > /dev/null
+  then
+    ok
+  else
+    error
+  fi
+
+
   message "Checking if js is installed"
   if js -h 2>&1 | grep -qi "JavaScript"; then
     if js -h 2>&1 | grep -q "1\.8\.0"; then
@@ -52,16 +62,6 @@ installCouchDB() {
   else
     ok
     info "CouchDB not yet installed"
-  fi
-
-
-  message "Installing required package for couchDB compilation"
-  if
-    yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness > /dev/null
-  then
-    ok
-  else
-    error
   fi
 
   message "Cloning couchDB git repository"
