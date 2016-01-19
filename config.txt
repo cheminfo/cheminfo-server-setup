@@ -7,3 +7,12 @@ ROC_HOME_DIR="/usr/local/rest-on-couch"
 
 
 REDHAT_RELEASE=`cat /etc/redhat-release | sed -E "s/.*release ([0-9]).*/\1/"`
+
+if
+	[ $(uname -m) == "amd64" ] || [ $(uname -m) == "x86_64" ]
+then
+	ARCH=64
+else
+	ARCH=32
+fi
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+COUCHDB_FOLDER="apache-couchdb-1.6.1"
 
 ########################
 ## INSTALLING COUCHDB ##
@@ -38,20 +38,19 @@ installCouchDB() {
   mkdir -p /usr/local/src/
   goto /usr/local/src/
 
-  if [ -d "/usr/local/src/couchdb" ]; then
+  if [ -d "/usr/local/src/$COUCHDB_FOLDER" ]; then
     error
-    info "/usr/local/src/couchdb folder exists"
+    info "/usr/local/src/$COUCHDB_FOLDER folder exists"
     info "Please delete this folder in order to recompile couchdb"
     goback
     return 1
   fi
 
   if
-    git clone --quiet https://github.com/apache/couchdb.git couchdb > /dev/null
-    cd couchdb
-    git checkout --quiet 1.6.1 > /dev/null
+    curl -s  http://mirror.switch.ch/mirror/apache/dist/couchdb/source/1.6.1/apache-couchdb-1.6.1.tar.gz | tar -zx
   then
     ok
+    cd $COUCHDB_FOLDER
   else
     error
     goback
@@ -60,8 +59,14 @@ installCouchDB() {
 
   message "Compiling and installing couchDB"
   if
-    ./bootstrap > /dev/null &&
-    ./configure --with-erlang=/usr/lib64/erlang/usr/include --prefix=/ > /dev/null &&
+
+    if [ $ARCH -eq 64 ]; then
+      TAG="64"
+    else
+      TAG=""
+    fi
+
+    ./configure --with-erlang=/usr/lib$TAG/erlang/usr/include --prefix=/ > /dev/null &&
     make > /dev/null &&
     make install > /dev/null
   then

@@ -34,15 +34,28 @@ installNode() {
   message "Installing node"
   mkdir -p /usr/local/node
   goto /usr/local/node
+  if [ $ARCH -eq 64 ]; then
+	TAG="64"
+  else
+	TAG="86"
+  fi
   NODE_LATEST=$(curl -s https://nodejs.org/dist/index.tab | cut -f 1 | sed -n 2p)
-  curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x64.tar.xz | tar --xz --extract
-  ln -fs node-${NODE_LATEST}-linux-x64 latest
+  curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x$TAG.tar.xz | tar --xz --extract
+  ln -fs node-${NODE_LATEST}-linux-x$TAG latest
   ln -fs /usr/local/node/latest/bin/node /usr/bin/node
   chown -R nodejs /usr/local/node
   ok
   message "Installing pm2"
   su nodejs -c "npm install -g pm2 >/dev/null 2>&1"
-  pm2 startup systemd -u nodejs --hp /usr/local/node > /dev/null
+  if
+    [ $REDHAT_RELEASE -eq 7 ]
+  then
+    pm2 startup systemd -u nodejs --hp /usr/local/node > /dev/null
+  else
+    pm2 startup centos -u nodejs --hp /usr/local/node > /dev/null
+    service pm2-init.sh start > /dev/null
+  fi
+
   pm2 kill >/dev/null # for some reason there is a PM2 process running as root
   mkdir -p /usr/local/pm2
   chown nodejs /usr/local/pm2

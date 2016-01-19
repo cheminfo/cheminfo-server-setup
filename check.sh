@@ -87,7 +87,7 @@ message "couchDB answer on http://127.0.0.1:5984/ and is version 1.6.1"
 curl -sf http://127.0.0.1:5984/ | grep -q "1.6.1"
 printResult
 
-message "couchDB answer on http://127.0.0.1/restoncouch/ and is version 1.6.1"
+message "couchDB answer on http://127.0.0.1/rest-on-couch/ and is version 1.6.1"
 curl -sfL http://127.0.0.1/rest-on-couch/ | grep -q "1.6.1"
 printResult
 
