@@ -29,8 +29,8 @@ fi
 message "Disabling IPv6"
 
 if
-    sysctl -w net.ipv6.conf.all.disable_ipv6=1 >$LOG &&
-    sysctl -w net.ipv6.conf.default.disable_ipv6=1 >$LOG
+    sysctl -w net.ipv6.conf.all.disable_ipv6=1 >> $LOG &&
+    sysctl -w net.ipv6.conf.default.disable_ipv6=1 >> $LOG
 then
     ok
 else

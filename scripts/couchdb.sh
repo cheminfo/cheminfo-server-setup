@@ -11,7 +11,7 @@ installCouchDB() {
 
   message "Installing required package for js and couchDB compilation"
   if
-    yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness > $LOG
+    yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness >> $LOG
   then
     ok
   else
@@ -32,7 +32,7 @@ installCouchDB() {
       [ $REDHAT_RELEASE -eq 7 ]
     then
       if
-        yum -asumeyes install js-devel > $LOG
+        yum -asumeyes install js-devel >> $LOG
       then
         ok
       else
@@ -43,9 +43,9 @@ installCouchDB() {
       goto /usr/local/src/
       curl -s http://ftp.mozilla.org/pub/js/js185-1.0.0.tar.gz | tar -xz
       cd js-1.8.5/js/src
-      ./configure > $LOG &&
-      make > $LOG &&
-      make install > $LOG &&
+      ./configure >> $LOG &&
+      make >> $LOG &&
+      make install >> $LOG &&
       cp -an /usr/local/lib/libmozjs* /lib/
       if [ $? -eq 0 ]; then 
         ok
@@ -59,7 +59,7 @@ installCouchDB() {
 
 
   message "Checking if couchDB is installed"
-  if couchdb -V &> $LOG; then
+  if couchdb -V &>> $LOG; then
     if couchdb -V | grep -q "1\.6\.1"; then
       ok
       info "Already installed and version is ok"
@@ -106,9 +106,9 @@ installCouchDB() {
       TAG=""
     fi
 
-    ./configure --with-erlang=/usr/lib$TAG/erlang/usr/include --prefix=/ > $LOG &&
-    make > $LOG &&
-    make install > $LOG
+    ./configure --with-erlang=/usr/lib$TAG/erlang/usr/include --prefix=/ >> $LOG &&
+    make >> $LOG &&
+    make install >> $LOG
   then
     ok
   else
@@ -137,8 +137,8 @@ installCouchDB() {
 		systemctl enable couchdb
 		systemctl start couchdb
 	else
-		chkconfig couchdb on > $LOG
-		service couchdb start > $LOG
+		chkconfig couchdb on >> $LOG
+		service couchdb start >> $LOG
 	fi
 
 
