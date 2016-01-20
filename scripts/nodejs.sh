@@ -4,10 +4,10 @@
 #######################
 
 installNode() {
-  yum --assumeyes install curl > /dev/null
+  yum --assumeyes install curl > $LOG
 
   message "Checking if node is installed"
-  if node --version &> /dev/null; then
+  if node --version &> $LOG; then
     if node --version | grep -q "v[567]"; then
       ok
       info "Already installed and version is ok"
@@ -22,7 +22,7 @@ installNode() {
   fi
 
   message "Checking if username nodejs exists"
-  if getent passwd nodejs >/dev/null 2>&1; then
+  if getent passwd nodejs >$LOG 2>&1; then
     ok
     info "Username nodejs exists already"
   else
@@ -47,17 +47,17 @@ installNode() {
   chown -R nodejs /usr/local/node
   ok
   message "Installing pm2"
-  su nodejs -c "npm install -g pm2 >/dev/null 2>&1"
+  su nodejs -c "npm install -g pm2 >$LOG 2>&1"
   if
     [ $REDHAT_RELEASE -eq 7 ]
   then
-    pm2 startup systemd -u nodejs --hp /usr/local/node > /dev/null
+    pm2 startup systemd -u nodejs --hp /usr/local/node > $LOG
   else
-    pm2 startup centos -u nodejs --hp /usr/local/node > /dev/null
-    service pm2-init.sh start > /dev/null
+    pm2 startup centos -u nodejs --hp /usr/local/node > $LOG
+    service pm2-init.sh start > $LOG
   fi
 
-  pm2 kill >/dev/null # for some reason there is a PM2 process running as root
+  pm2 kill >$LOG # for some reason there is a PM2 process running as root
   mkdir -p /usr/local/pm2
   chown nodejs /usr/local/pm2
   ok

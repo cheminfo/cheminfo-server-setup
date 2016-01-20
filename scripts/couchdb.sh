@@ -11,7 +11,7 @@ installCouchDB() {
 
   message "Installing required package for js and couchDB compilation"
   if
-    yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness > /dev/null
+    yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness > $LOG
   then
     ok
   else
@@ -37,7 +37,7 @@ installCouchDB() {
       [ $REDHAT_RELEASE -eq 7 ]
     then
       if
-        yum -asumeyes install js-devel > /dev/null
+        yum -asumeyes install js-devel > $LOG
       then
         ok
       else
@@ -48,9 +48,9 @@ installCouchDB() {
       goto /usr/local/src/
       curl -s http://ftp.mozilla.org/pub/js/js185-1.0.0.tar.gz | tar -xz
       cd js-1.8.5/js/src
-      ./configure --prefix / > /dev/null &&
-      make > /dev/null &&
-      make install > /dev/null 
+      ./configure --prefix / > $LOG &&
+      make > $LOG &&
+      make install > $LOG 
       if [ $? -eq 0 ]; then 
         ok
       else
@@ -63,7 +63,7 @@ installCouchDB() {
 
 
   message "Checking if couchDB is installed"
-  if couchdb -V &> /dev/null; then
+  if couchdb -V &> $LOG; then
     if couchdb -V | grep -q "1\.6\.1"; then
       ok
       info "Already installed and version is ok"
@@ -110,9 +110,9 @@ installCouchDB() {
       TAG=""
     fi
 
-    ./configure --with-erlang=/usr/lib$TAG/erlang/usr/include --prefix=/ > /dev/null &&
-    make > /dev/null &&
-    make install > /dev/null
+    ./configure --with-erlang=/usr/lib$TAG/erlang/usr/include --prefix=/ > $LOG &&
+    make > $LOG &&
+    make install > $LOG
   then
     ok
   else
@@ -122,7 +122,7 @@ installCouchDB() {
   fi
 
   message "Checking if username couchdb exists"
-  if getent passwd couchdb >/dev/null 2>&1; then
+  if getent passwd couchdb >$LOG 2>&1; then
     ok
     info "Username couchdb exists already"
   else
@@ -141,8 +141,8 @@ installCouchDB() {
 		systemctl enable couchdb
 		systemctl start couchdb
 	else
-		chkconfig couchdb on > /dev/null
-		service couchdb start > /dev/null
+		chkconfig couchdb on > $LOG
+		service couchdb start > $LOG
 	fi
 
 

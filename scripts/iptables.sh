@@ -1,4 +1,4 @@
-yum install --assumeyes iptables-services > /dev/null
+yum install --assumeyes iptables-services > $LOG
 
 message "Adding rules in iptables file"
 
@@ -30,12 +30,12 @@ else
 	if
 		[ $REDHAT_RELEASE -eq 7 ]
 	then
-        	systemctl mask firewalld > /dev/null
-		systemctl enable iptables > /dev/null
-		systemctl stop firewalld.service > /dev/null
+        	systemctl mask firewalld > $LOG
+		systemctl enable iptables > $LOG
+		systemctl stop firewalld.service > $LOG
 	else
-		service iptables stop > /dev/null
-		chkconfig iptables on > /dev/null
+		service iptables stop > $LOG
+		chkconfig iptables on > $LOG
 	fi
 
         echo "options xt_recent ip_list_tot=4000 ip_pkt_list_tot=20" >> /etc/modprobe.d/options.conf
@@ -44,9 +44,9 @@ else
 	if
 		[ $REDHAT_RELEASE -eq 7 ]
 	then
-        	systemctl start iptables.service > /dev/null
+        	systemctl start iptables.service > $LOG
 	else
-		service iptables start > /dev/null
+		service iptables start > $LOG
 	fi
     else
         error

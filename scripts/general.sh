@@ -8,7 +8,7 @@ ok
 
 message "Updating packages"
 if
-    yum --assumeyes update >> /dev/null
+    yum --assumeyes update >> $LOG
 then
     ok
 else
@@ -18,7 +18,7 @@ fi
 message "Installing epel-release, git, screen, xz"
 
 if
-    yum --assumeyes install epel-release git screen xz >> /dev/null
+    yum --assumeyes install epel-release git screen xz >> $LOG
 then
     ok
 else
@@ -29,8 +29,8 @@ fi
 message "Disabling IPv6"
 
 if
-    sysctl -w net.ipv6.conf.all.disable_ipv6=1 >/dev/null &&
-    sysctl -w net.ipv6.conf.default.disable_ipv6=1 >/dev/null
+    sysctl -w net.ipv6.conf.all.disable_ipv6=1 >$LOG &&
+    sysctl -w net.ipv6.conf.default.disable_ipv6=1 >$LOG
 then
     ok
 else

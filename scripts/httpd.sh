@@ -1,7 +1,7 @@
 message "Installing httpd"
 
 if
-    ! yum --assumeyes install httpd mod_ssl > /dev/null
+    ! yum --assumeyes install httpd mod_ssl > $LOG
 then
     error
     return 1;
@@ -25,9 +25,9 @@ fi
 if
 	[ $REDHAT_RELEASE -eq 7 ]
 then
-       	systemctl start httpd.service > /dev/null
-       	systemctl enable httpd.service > /dev/null
+       	systemctl start httpd.service > $LOG
+       	systemctl enable httpd.service > $LOG
 else
-	service httpd start > /dev/null
-	chkconfig httpd on > /dev/null
+	service httpd start > $LOG
+	chkconfig httpd on > $LOG
 fi
