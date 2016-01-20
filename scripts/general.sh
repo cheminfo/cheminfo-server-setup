@@ -18,7 +18,7 @@ fi
 message "Installing epel-release, git, screen, xz"
 
 if
-    yum --assumeyes install epel-release git screen xz >> $LOG
+    yum --assumeyes install zip epel-release git screen xz >> $LOG
 then
     ok
 else

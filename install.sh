@@ -6,6 +6,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 LOG="/tmp/rest-on-couch.log"
 
 echo "Log file: $LOG"
+touch $LOG
+chmod 777 $LOG
 
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
