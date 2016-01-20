@@ -93,7 +93,7 @@ goback() {
 }
 
 execnode() {
-  su nodejs -c "$1"
+  su nodejs -l -c "$1"
 }
 
 copynode() {
