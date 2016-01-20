@@ -20,14 +20,9 @@ installCouchDB() {
 
 
   message "Checking if js is installed"
-  if js -h 2>&1 | grep -qi "JavaScript"; then
-    if js -h 2>&1 | grep -q "1\.8\.0"; then
-      ok
-      info "Already installed and version is ok"
-    else
-      error
-      info "js version is not 1.8.0, please remove it"
-    fi
+  if whereis libmozjs185.so.1.0.0 | grep -q "lib/lib" 2>&1; then
+    ok
+    info "Already installed and version is ok"
   else
     ok
     info "js not yet installed"
