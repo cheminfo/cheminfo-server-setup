@@ -6,6 +6,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 LOG="/tmp/rest-on-couch.log"
 
 echo "Log file: $LOG"
+echo "You can following the installation using: tail -f $LOG"
 touch $LOG
 chmod 777 $LOG
 
