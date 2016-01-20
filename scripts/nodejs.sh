@@ -47,7 +47,6 @@ installNode() {
   chown -R nodejs /usr/local/node
   ok
   message "Installing pm2"
-  goto /usr/local/node
   execnode "npm install -g pm2 >/dev/null 2>&1"
   goback
   if
