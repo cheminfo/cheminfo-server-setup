@@ -51,7 +51,7 @@ installCouchDB() {
       ./configure > $LOG &&
       make > $LOG &&
       make install > $LOG &&
-      cp -p /usr/local/lib/libmozjs* /lib/
+      cp -an /usr/local/lib/libmozjs* /lib/
       if [ $? -eq 0 ]; then 
         ok
       else
