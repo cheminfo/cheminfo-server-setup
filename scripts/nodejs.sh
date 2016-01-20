@@ -43,6 +43,7 @@ installNode() {
   curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x$TAG.tar.xz | tar --xz --extract
   ln -fs node-${NODE_LATEST}-linux-x$TAG latest
   ln -fs /usr/local/node/latest/bin/node /usr/bin/node
+  ln -fs /usr/local/node/latest/bin/npm /usr/bin/npm
   chown -R nodejs /usr/local/node
   ok
   message "Installing pm2"
