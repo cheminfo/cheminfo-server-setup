@@ -48,7 +48,7 @@ installCouchDB() {
       goto /usr/local/src/
       curl -s http://ftp.mozilla.org/pub/js/js185-1.0.0.tar.gz | tar -xz
       cd js-1.8.5/js/src
-      ./configure > /dev/null &&
+      ./configure --prefix / > /dev/null &&
       make > /dev/null &&
       make install > /dev/null 
       if [ $? -eq 0 ]; then 
