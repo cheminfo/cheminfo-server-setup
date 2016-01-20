@@ -93,7 +93,7 @@ goback() {
 }
 
 execnode() {
-  su nodejs -l -c "$1"
+  su nodejs -c "$1"
 }
 
 copynode() {
@@ -105,3 +105,20 @@ copydirnode() {
   cp -r "$1" "$2"
   chown -R nodejs "$2"
 }
+
+confirm () {
+    # call with a prompt string or use a default
+    read -r -p "${1:-Continue? [y/N]} " response
+    case $response in
+        [yY][eE][sS]|[yY]) 
+            true
+            ;;
+        "")
+            true
+            ;;
+        *)
+            false
+            ;;
+    esac
+}
+

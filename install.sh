@@ -23,7 +23,7 @@ source ../config.txt
 source ./logging.sh
 source ./general.sh
 source ./iptables.sh
-source ./nodejs.sh
-source ./couchdb.sh
-source ./httpd.sh
-source ./rest-on-couch.sh
+confirm "install nodejs (y/n) ? " && source ./nodejs.sh
+confirm "install couchdb (y/n) ? " && source ./couchdb.sh
+confirm "install httpd (y/n) ? " && source ./httpd.sh
+confirm "install rest-on-couch (y/n) ? " && source ./rest-on-couch.sh

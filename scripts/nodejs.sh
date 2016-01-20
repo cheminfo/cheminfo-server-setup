@@ -47,7 +47,9 @@ installNode() {
   chown -R nodejs /usr/local/node
   ok
   message "Installing pm2"
-  execNode "npm install -g pm2 >/dev/null 2>&1"
+  goto /usr/local/node
+  execnode "npm install -g pm2 >/dev/null 2>&1"
+  goback
   if
     [ $REDHAT_RELEASE -eq 7 ]
   then
