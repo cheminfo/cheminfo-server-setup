@@ -32,7 +32,7 @@ installCouchDB() {
       [ $REDHAT_RELEASE -eq 7 ]
     then
       if
-        yum -asumeyes install js-devel >> $LOG
+        yum --assumeyes install js-devel >> $LOG
       then
         ok
       else
