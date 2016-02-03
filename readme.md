@@ -1,5 +1,7 @@
 You should have a fresh install of CentOS 7 in ENGLISH !
 
+no selinux !
+https://github.com/cheminfo/cheminfo-server-setup/issues/9
 
 Configure your proxy ????
 
