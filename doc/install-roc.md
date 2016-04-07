@@ -139,7 +139,7 @@ module.exports = {
   auth: {
     ldap: {
       server: 'http://ldap.example.com',
-      usernameField: 'user',
+      usernameField: 'username',
       passwordField: 'password'
     }
   }
