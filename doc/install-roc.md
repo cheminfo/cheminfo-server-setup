@@ -121,3 +121,27 @@ Execute the same two lines with a different name instead of "visualizer" for any
 
 ### Create rest-on-couch config
 
+Create a file in `/usr/local/rest-on-couch/config.js` with the following content:
+
+```js
+'use strict';
+
+module.exports = {
+  allowedOrigins: ["http://server1.example.com"],
+  port: 3005,
+  sessionDomain: "server1.example.com",
+
+  // CouchDB credentials
+  username: "rest-on-couch",
+  password: "123",
+
+  publicAddress: 'https://server1.example.com',  
+  auth: {
+    ldap: {
+      server: 'http://ldap.example.com',
+      usernameField: 'user',
+      passwordField: 'password'
+    }
+  }
+};
+```
