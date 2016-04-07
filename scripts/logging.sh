@@ -81,17 +81,6 @@ printStatus() {
 	return $status
 }
 
-CURRENT=''
-goto() {
-  CURRENT=`pwd`
-  cd "$1"
-}
-
-goback() {
-  cd "${CURRENT}"
-  CURRENT=''
-}
-
 execnode() {
   su nodejs -c "$1"
 }

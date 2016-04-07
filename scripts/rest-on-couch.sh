@@ -37,11 +37,11 @@ installRestOnCouch() {
     [ ! -d "/usr/local/pm2/rest-on-couch" ]
   then
     message "installing rest-on-couch"
-    goto /usr/local/pm2
+    pushd /usr/local/pm2
     execnode 'git clone https://github.com/cheminfo/rest-on-couch.git' >> $LOG
     cd rest-on-couch
     execnode 'npm install --production' >> $LOG
-    goback
+    popd
     ok
   fi
   
@@ -49,11 +49,11 @@ installRestOnCouch() {
     [ ! -f "/usr/local/pm2/roc-server.json" ]
   then
     message "configuring server"
-    goto /usr/local/node
+    pushd /usr/local/node
     copynode "${DIR}/configs/roc-server.json" /usr/local/pm2/roc-server.json
     execnode "pm2 startOrRestart /usr/local/pm2/roc-server.json" >> $LOG
     execnode "pm2 dump" >> $LOG
-    goback
+    popd
     ok
   fi
 
@@ -61,11 +61,11 @@ installRestOnCouch() {
     [ ! -f "/usr/local/pm2/roc-import.json" ]
   then
     message "configuring import service"
-    goto /usr/local/node
+    pushd /usr/local/node
     copynode "${DIR}/configs/roc-import.json" /usr/local/pm2/roc-import.json
     execnode "pm2 startOrRestart /usr/local/pm2/roc-import.json" >> $LOG
     execnode "pm2 dump" >$LOG
-    goback
+    popd
     ok
   fi
 }

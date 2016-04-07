@@ -33,22 +33,22 @@ installNode() {
   fi
   message "Installing node"
   mkdir -p /usr/local/node
-  goto /usr/local/node
+  pushd /usr/local/node
   if [ $ARCH -eq 64 ]; then
 	TAG="64"
   else
 	TAG="86"
   fi
   NODE_LATEST=$(curl -s https://nodejs.org/dist/index.tab | cut -f 1 | sed -n 2p)
-  curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x$TAG.tar.xz | tar --xz --extract
-  ln -fs node-${NODE_LATEST}-linux-x$TAG latest
+  curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x${TAG}.tar.xz | tar --xz --extract
+  ln -fs node-${NODE_LATEST}-linux-x${TAG} latest
   ln -fs /usr/local/node/latest/bin/node /usr/bin/node
   ln -fs /usr/local/node/latest/bin/npm /usr/bin/npm
   chown -R nodejs /usr/local/node
   ok
   message "Installing pm2"
-  execnode "npm install -g pm2 >/dev/null 2>&1"
-  goback
+  execnode "npm install -g pm2@latest >/dev/null 2>&1"
+  popd
   if
     [ $REDHAT_RELEASE -eq 7 ]
   then
@@ -62,7 +62,7 @@ installNode() {
   mkdir -p /usr/local/pm2
   chown nodejs /usr/local/pm2
   ok
-  goback
+  popd
 }
 
 installNode
