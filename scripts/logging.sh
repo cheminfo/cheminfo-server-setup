@@ -106,11 +106,12 @@ copydirnode() {
   chown -R nodejs "$2"
 }
 
-confirm () {
+confirm() {
     # call with a prompt string or use a default
-    read -r -p "${1:-Continue? [y/N]} " response
-    case $response in
-        [yY][eE][sS]|[yY]) 
+    PROMPT="${1:-Continue? [y/N]} "
+    read -r -p "$PROMPT" response
+    case ${response:0:1} in
+        [yY])
             true
             ;;
         "")
@@ -122,3 +123,25 @@ confirm () {
     esac
 }
 
+prompt() {
+    # $1 = prompt message
+    # $2 = default value
+    PROMPT="${1:-Type someting}: "
+    DEFAULT=$2
+    if [[ ! -z $DEFAULT ]]; then
+        PROMPT="$PROMPT [$DEFAULT] "
+    fi
+
+    while true; do
+        read -r -p $PROMPT response
+        if [[ -z $response ]]; then
+            if [[ ! -z $DEFAULT ]]; then
+                echo $DEFAULT
+                return
+            fi
+        else
+            echo $response
+            return
+        fi
+    done
+}
