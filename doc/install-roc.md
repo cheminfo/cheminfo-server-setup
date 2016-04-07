@@ -1,8 +1,42 @@
 # ROC installation instructions
 
 How to install and configure a rest-on-couch server with built-in view manager.
+This tutorial is made for CentOS 7.
 
-## Step 1: Install Node.js
+## Step 1: Install CouchDB
+
+### Download and build CouchDB
+
+```bash
+yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness
+yum install js-devel
+mkdir -p /usr/local/src/
+cd /usr/local/src
+curl -s  http://mirror.switch.ch/mirror/apache/dist/couchdb/source/1.6.1/apache-couchdb-1.6.1.tar.gz | tar -zx
+cd apache-couchdb-1.6.1
+./configure --with-erlang=/usr/lib64/erlang/usr/include --prefix=/
+make
+make install
+```
+
+### Create CouchDB user and start the server
+
+```bash
+useradd --comment "CouchDB Administrator" --home-dir /var/lib/couchdb --user-group --system --shell /bin/bash couchdb
+chown -R couchdb:couchdb /etc/couchdb /var/lib/couchdb /var/log/couchdb /var/run/couchdb
+mv /etc/rc.d/couchdb /etc/init.d/couchdb
+chkconfig --add couchdb
+systemctl enable couchdb
+systemctl start couchdb
+```
+
+### Setup CouchDB administrator account
+
+```bash
+curl -X PUT http://localhost:5984/_config/admins/admin -d '"password"'
+```
+
+## Step 2: Install Node.js
 
 ### Create the "nodejs" account
 
@@ -28,7 +62,7 @@ chown -R nodejs /usr/local/node
 echo 'PATH=${PATH}:/usr/local/node/latest/bin' >> /usr/local/node/.bashrc
 ```
 
-## Step 2: Install PM2
+## Step 3: Install PM2
 
 ```bash
 mkdir -p /usr/local/pm2
@@ -36,7 +70,7 @@ chown nodejs /usr/local/pm2
 su nodejs -l -c "npm install -g pm2@latest"
 ```
 
-## Step 3: Install rest-on-couch
+## Step 4: Install rest-on-couch
 
 ### Download ROC and install dependencies
 
@@ -69,6 +103,21 @@ Create a file in `/usr/local/pm2/rest-on-couch.json` with the following content:
   "instances"   : 4 
 }
 ```
+
+### Add rest-on-couch user
+
+```bash
+curl -X PUT http://admin:password@localhost:5984/_users/org.couchdb.user:rest-on-couch  -d '{"password": "123", "type": "user", "name": "rest-on-couch", "roles":[]}'
+```
+
+### Create rest-on-couch database(s)
+
+```bash
+curl -X PUT http://admin:password@localhost:5984/visualizer/
+curl -X PUT http://admin:password@localhost:5984/visualizer/_security -d '{"admins":{"names":["rest-on-couch"],"roles":[]},"members":{"names":["rest-on-couch"],"roles":[]}}'
+```
+
+Execute the same two lines with a different name instead of "visualizer" for any other database that has to be created.
 
 ### Create rest-on-couch config
 
