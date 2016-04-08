@@ -171,3 +171,7 @@ ProxyPass /rest-on-couch/ http://127.0.0.1:3005/
 systemctl start httpd.service
 systemctl enable httpd.service
 ```
+
+### Add home page
+
+Copy both files from `https://github.com/cheminfo/cheminfo-server-setup/tree/master/doc/home` somewhere on your website
