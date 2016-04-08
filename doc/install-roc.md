@@ -186,3 +186,33 @@ systemctl enable httpd.service
 ### Add home page
 
 Copy both files from https://github.com/cheminfo/cheminfo-server-setup/tree/master/doc/home somewhere on your website
+
+## Step 6: Configure LDAP search
+
+### Install ldapjs in ROC home dir
+
+```bash
+su nodejs -l
+cd /usr/local/rest-on-couch
+npm install ldapjs
+```
+
+### Example use
+
+```js
+const LDAP = require('ldapjs');
+
+var ldap = LDAP.createClient({
+    url: 'ldap://ldap.epfl.ch'
+});
+
+ldap.search('c=ch', {
+    scope: 'sub',
+    filter: 'uid=patiny',
+    attributes: ['mail']
+}, function(err, res) {
+    res.on('searchEntry', function(entry) {
+        console.log(entry.object.mail);
+    });
+});
+```
