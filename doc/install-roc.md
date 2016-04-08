@@ -185,4 +185,4 @@ systemctl enable httpd.service
 
 ### Add home page
 
-Copy both files from `https://github.com/cheminfo/cheminfo-server-setup/tree/master/doc/home` somewhere on your website
+Copy both files from https://github.com/cheminfo/cheminfo-server-setup/tree/master/doc/home somewhere on your website
