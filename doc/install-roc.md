@@ -135,13 +135,24 @@ module.exports = {
   username: "rest-on-couch",
   password: "123",
 
+  proxyPrefix: '/rest-on-couch/',
   publicAddress: 'https://server1.example.com',  
   auth: {
     ldap: {
-      server: 'http://ldap.example.com',
-      usernameField: 'username',
-      passwordField: 'password'
+      server: {
+        url: 'ldaps://ldap.example.com',
+        searchBase: 'c=ch',
+        searchFilter: 'uid={{username}}'
+      }
     }
+  },
+  
+  // Default database rights
+  // Any logged in user can create documents. Only owners can read and write their own documents
+  rights: {
+    read: [],
+    write: [],
+    create: ['anyuser']
   }
 };
 ```
