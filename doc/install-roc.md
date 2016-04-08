@@ -203,16 +203,22 @@ npm install ldapjs
 const LDAP = require('ldapjs');
 
 var ldap = LDAP.createClient({
-    url: 'ldap://ldap.epfl.ch'
+  url: 'ldap://ldap.epfl.ch'
 });
 
 ldap.search('c=ch', {
-    scope: 'sub',
-    filter: 'uid=patiny',
-    attributes: ['mail']
+  scope: 'sub',
+  filter: 'uid=patiny',
+  attributes: ['mail']
 }, function(err, res) {
-    res.on('searchEntry', function(entry) {
-        console.log(entry.object.mail);
-    });
+  var mail;
+  res.on('searchEntry', function(entry) {
+    mail = entry.object.mail;
+  });
+  res.on('end', function() {
+    if (mail) console.log(mail);
+    else console.log('not found');
+    ldap.unbind(); // Close connection to the server
+  });
 });
 ```
