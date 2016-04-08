@@ -145,3 +145,29 @@ module.exports = {
   }
 };
 ```
+
+## Step 5: install and/or configure Apache
+
+### Disable SELinux
+
+Temporarily: `setenforce 0`
+Permanently: edit `/etc/selinux/config` and set `SELINUX=permissive`
+
+### Install Apache
+
+```bash
+yum install httpd
+```
+
+### Add proxy pass to Apache configuration
+
+```
+ProxyPass /rest-on-couch/ http://127.0.0.1:3005/
+```
+
+### Enable Apache
+
+```bash
+systemctl start httpd.service
+systemctl enable httpd.service
+```
