@@ -157,7 +157,83 @@ module.exports = {
 };
 ```
 
-## Step 5: install and/or configure Apache
+### Create rest-on-couch config for the visualizer database
+Clone the rest-on-couch config for the visualizer to `/usr/local/rest-on-couch/visualizer`
+```
+mkdir /usr/local/rest-on-couch/visualizer
+cd /usr/local/rest-on-couch/visualizer
+git clone https://github.com/cheminfo/roc-visualizer-config.git
+```
+
+## Step 5: install and configure flavor-builder
+The flavor-builder enables to generate a static website from a users's public views
+The flavor-builder will work once the output directory in apache has been created (see Apache section)
+
+### Install flavor-builder
+```bash
+cd /usr/local/node/
+git clone https://github.com/cheminfo/flavor-builder.git
+cd /usr/local/node/flavor-builder
+npm install
+```
+
+### Create flavor-builder config directory
+As `root`:
+```bash
+mkdir /usr/local/flavor-builder
+chown nodejs /usr/local/flavor-builder
+```
+
+### Configure flavor-builder
+Copy and adapt the following configuration file to `/usr/local/flavor-builder/config.js`
+
+```json
+{
+  "couchurl": "",
+  "couchLocalUrl": "http://127.0.0.1:5984",
+  "couchDatabase": "visualizer",
+  "couchUsername": "rest-on-couch",
+  "couchPassword": "123",
+  "dir": "/var/www/html/flavor-builder",
+  "home": "Home",
+  "forceUpdate": false,
+  "flavorUsername": "michael.zasso@epfl.ch",
+  "editRedirect": "http://isicgesrv2.epfl.ch/visualizer/",
+  "cdn": "http://www.lactame.com",
+  "direct": "http://direct.lactame.com",
+  "flavorLayouts": {
+    "cheminformatics": "cheminformatics",
+    "720p": "simple-menu",
+    "eln": "visualizer-on-tabs"
+  },
+  "layouts": {
+    "default": "simplemenu/endlayouts/simplemenu.html",
+    "minimal-simple-menu": "simplemenu/endlayouts/simple.html"
+  },
+  "libFolder": "Q92ELCJKTIDXB",
+  "selfContained": true,
+  "visualizerOnTabs": {
+    "_default": {
+      "rocLogin": {
+        "url": "http://isicgesrv2.epfl.ch/rest-on-couch/",
+        "redirect": "http://isicgesrv2.epfl.ch/flavor-builder/",
+        "auto": true
+      }
+    }
+  }
+}
+```
+
+Adapt `couchPassword`, `flavorUsername`
+
+### Add flavor-builder crontab
+As `nodejs`
+```bash
+echo "* * * * * node /usr/local/node/flavor-builder/bin/build.js --config=/usr/local/flavor-builder/config.json" | crontab -
+```
+
+
+## Step 6: install and/or configure Apache
 
 ### Disable SELinux
 
@@ -183,11 +259,18 @@ systemctl start httpd.service
 systemctl enable httpd.service
 ```
 
+### Create directories
+As `root`
+```bash
+mkdir /var/www/html/flavor-builder
+chown nodejs /var/www/html/flavor-builder
+```
+
 ### Add home page
 
 Copy both files from https://github.com/cheminfo/cheminfo-server-setup/tree/master/doc/home somewhere on your website
 
-## Step 6: Configure LDAP search
+## Step 7: Configure LDAP search
 
 ### Install ldapjs in ROC home dir
 
