@@ -202,8 +202,7 @@ Copy and adapt the following configuration file to `/usr/local/flavor-builder/co
   "cdn": "http://www.lactame.com",
   "direct": "http://direct.lactame.com",
   "flavorLayouts": {
-    "cheminformatics": "cheminformatics",
-    "720p": "simple-menu",
+    "720p": "minimal-simple-menu",
     "eln": "visualizer-on-tabs"
   },
   "layouts": {
