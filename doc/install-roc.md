@@ -160,9 +160,8 @@ module.exports = {
 ### Create rest-on-couch config for the visualizer database
 Clone the rest-on-couch config for the visualizer to `/usr/local/rest-on-couch/visualizer`
 ```
-mkdir /usr/local/rest-on-couch/visualizer
-cd /usr/local/rest-on-couch/visualizer
-git clone https://github.com/cheminfo/roc-visualizer-config.git
+cd /usr/local/rest-on-couch
+git clone https://github.com/cheminfo/roc-visualizer-config.git visualizer
 ```
 
 ## Step 5: install and configure flavor-builder
