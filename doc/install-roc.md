@@ -35,7 +35,7 @@ CentOS 6 (32bit)
 </td>
 <td>
 <pre lang="bash">
-  yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness xz
+  yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness xz zip
   
   mkdir -p /usr/local/src/
   cd /usr/local/src/
