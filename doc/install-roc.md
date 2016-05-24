@@ -333,10 +333,34 @@ ProxyPass /rest-on-couch/ http://127.0.0.1:3005/
 
 ### Enable Apache
 
-```bash
-systemctl start httpd.service
-systemctl enable httpd.service
-```
+<table>
+<tr>
+<th>System</th>
+<th>Code</th>
+</tr>
+<tr>
+<td>
+CentOS 7 (64bit)
+</td>
+<td>
+<pre lang="bash">
+  systemctl start httpd.service
+  systemctl enable httpd.service
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+CentOS 6 (32bit)
+</td>
+<td>
+<pre lang="bash">
+  chkconfig httpd on
+  service httpd start
+</pre>
+</td>
+</tr>
+</table>
 
 ### Create directories
 
