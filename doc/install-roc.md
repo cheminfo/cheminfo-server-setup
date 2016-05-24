@@ -7,17 +7,55 @@ This tutorial is made for CentOS 7.
 
 ### Download and build CouchDB
 
-```bash
-yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness
-yum install js-devel
-mkdir -p /usr/local/src/
-cd /usr/local/src
-curl -s  http://mirror.switch.ch/mirror/apache/dist/couchdb/source/1.6.1/apache-couchdb-1.6.1.tar.gz | tar -zx
-cd apache-couchdb-1.6.1
-./configure --with-erlang=/usr/lib64/erlang/usr/include --prefix=/
-make
-make install
-```
+<table>
+<tr>
+<th>System</th>
+<th>Code</th>
+</tr>
+<tr>
+<td>
+CentOS 7 (64bit)
+</td>
+<td>
+<pre lang="bash">
+  yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness js-devel
+  mkdir -p /usr/local/src/
+  cd /usr/local/src
+  curl -s  http://mirror.switch.ch/mirror/apache/dist/couchdb/source/1.6.1/apache-couchdb-1.6.1.tar.gz | tar -zx
+  cd apache-couchdb-1.6.1
+  ./configure --with-erlang=/usr/lib64/erlang/usr/include --prefix=/
+  make
+  make install
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+CentOS 6 (32bit)
+</td>
+<td>
+<pre lang="bash">
+  yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness
+  
+  mkdir -p /usr/local/src/
+  cd /usr/local/src/
+  curl -s http://ftp.mozilla.org/pub/js/js185-1.0.0.tar.gz | tar -xz
+  cd js-1.8.5/js/src
+  ./configure
+  make
+  make install
+  cp -an /usr/local/lib/libmozjs* /lib/
+  
+  cd /usr/local/src
+  curl -s  http://mirror.switch.ch/mirror/apache/dist/couchdb/source/1.6.1/apache-couchdb-1.6.1.tar.gz | tar -zx
+  cd apache-couchdb-1.6.1
+  ./configure --with-erlang=/usr/lib/erlang/usr/include --prefix=/
+  make
+  make install
+</pre>
+</td>
+</tr>
+</table>
 
 ### Create CouchDB user and start the server
 
