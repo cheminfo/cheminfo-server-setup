@@ -442,8 +442,9 @@ ldap.search('c=ch', {
 
 ## Add couchDB login 
 
-Alternatively, you can use the couchDB login system instead or along ldap
-Add the couchDB login in `/usr/local/rest-on-couch/config.js`
+Alternatively, you can use the couchDB login system instead or along ldap.
+
+Add the couchDB configuration in the 'auth' properties in `/usr/local/rest-on-couch/config.js`
 
 ```js
 'use strict';
