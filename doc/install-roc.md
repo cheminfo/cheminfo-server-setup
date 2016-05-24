@@ -59,14 +59,42 @@ CentOS 6 (32bit)
 
 ### Create CouchDB user and start the server
 
-```bash
-useradd --comment "CouchDB Administrator" --home-dir /var/lib/couchdb --user-group --system --shell /bin/bash couchdb
-chown -R couchdb:couchdb /etc/couchdb /var/lib/couchdb /var/log/couchdb /var/run/couchdb
-mv /etc/rc.d/couchdb /etc/init.d/couchdb
-chkconfig --add couchdb
-systemctl enable couchdb
-systemctl start couchdb
-```
+<table>
+<tr>
+<th>System</th>
+<th>Code</th>
+</tr>
+<tr>
+<td>
+CentOS 7 (64bit)
+</td>
+<td>
+<pre lang="bash">
+  useradd --comment "CouchDB Administrator" --home-dir /var/lib/couchdb --user-group --system --shell /bin/bash couchdb
+  chown -R couchdb:couchdb /etc/couchdb /var/lib/couchdb /var/log/couchdb /var/run/couchdb
+  mv /etc/rc.d/couchdb /etc/init.d/couchdb
+  chkconfig --add couchdb
+  systemctl enable couchdb
+  systemctl start couchdb
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+CentOS 6 (32bit)
+</td>
+<td>
+<pre lang="bash">
+  useradd --comment "CouchDB Administrator" --home-dir /var/lib/couchdb --user-group --system --shell /bin/bash couchdb
+  chown -R couchdb:couchdb /etc/couchdb /var/lib/couchdb /var/log/couchdb /var/run/couchdb
+  mv /etc/rc.d/couchdb /etc/init.d/couchdb
+  chkconfig --add couchdb
+  chkconfig couchdb on
+  service couchdb start
+</pre>
+</td>
+</tr>
+</table>
 
 ### Setup CouchDB administrator account
 
@@ -76,36 +104,54 @@ curl -X PUT http://localhost:5984/_config/admins/admin -d '"password"'
 
 ## Step 2: Install Node.js
 
-### Create the "nodejs" account
-
-```bash
-useradd nodejs --comment "Node.js Administrator" --home-dir /usr/local/node --user-group
-chmod 755 /usr/local/node
-```
-
 ### Download and install latest Node.js version
 
-```bash
-mkdir -p /usr/local/node
-cd /usr/local/node
-NODE_LATEST=$(curl -s https://nodejs.org/dist/index.tab | cut -f 1 | sed -n 2p)
-curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x64.tar.xz | tar --xz --extract
-ln -fs node-${NODE_LATEST}-linux-x64 latest
-chown -R nodejs /usr/local/node
-```
+<table>
+<tr>
+<th>System</th>
+<th>Code</th>
+</tr>
+<tr>
+<td>
+CentOS 7 (64bit)
+</td>
+<td>
+<pre lang="bash">
+  mkdir -p /usr/local/node
+  cd /usr/local/node
+  NODE_LATEST=$(curl -s https://nodejs.org/dist/index.tab | cut -f 1 | sed -n 2p)
+  curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x64.tar.xz | tar --xz --extract
+  ln -fs node-${NODE_LATEST}-linux-x64 latest
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+CentOS 6 (32bit)
+</td>
+<td>
+<pre lang="bash">
+  mkdir -p /usr/local/node
+  cd /usr/local/node
+  NODE_LATEST=$(curl -s https://nodejs.org/dist/index.tab | cut -f 1 | sed -n 2p)
+  curl -s https://nodejs.org/dist/${NODE_LATEST}/node-${NODE_LATEST}-linux-x86.tar.xz | tar --xz --extract
+  ln -fs node-${NODE_LATEST}-linux-x86 latest
+</pre>
+</td>
+</tr>
+</table>
 
-### Add Node.js bin directory to the PATH for nodejs
+### Add Node.js bin directory to the PATH
 
 ```bash
-echo 'PATH=${PATH}:/usr/local/node/latest/bin' >> /usr/local/node/.bashrc
+echo 'PATH=${PATH}:/usr/local/node/latest/bin' >> /root/.bashrc
 ```
 
 ## Step 3: Install PM2
 
 ```bash
 mkdir -p /usr/local/pm2
-chown nodejs /usr/local/pm2
-su nodejs -l -c "npm install -g pm2@latest"
+npm install -g pm2@latest
 ```
 
 ## Step 4: Install rest-on-couch
@@ -113,7 +159,6 @@ su nodejs -l -c "npm install -g pm2@latest"
 ### Download ROC and install dependencies
 
 ```bash
-su nodejs -l
 cd /usr/local/node
 git clone https://github.com/cheminfo/rest-on-couch.git
 cd rest-on-couch
@@ -124,7 +169,6 @@ npm install
 
 ```bash
 mkdir -p /usr/local/rest-on-couch
-chown nodejs /usr/local/rest-on-couch
 ```
 
 ### Create PM2 config
@@ -215,10 +259,9 @@ npm install
 ```
 
 ### Create flavor-builder config directory
-As `root`:
+
 ```bash
 mkdir /usr/local/flavor-builder
-chown nodejs /usr/local/flavor-builder
 ```
 
 ### Configure flavor-builder
@@ -263,7 +306,7 @@ Copy and adapt the following configuration file to `/usr/local/flavor-builder/co
 Adapt `couchPassword`, `flavorUsername`
 
 ### Add flavor-builder crontab
-As `nodejs`
+
 ```bash
 echo "* * * * * node /usr/local/node/flavor-builder/bin/build.js --config=/usr/local/flavor-builder/config.json  > /dev/null 2>&1" | crontab -
 ```
@@ -296,10 +339,9 @@ systemctl enable httpd.service
 ```
 
 ### Create directories
-As `root`
+
 ```bash
 mkdir /var/www/html/flavor-builder
-chown nodejs /var/www/html/flavor-builder
 ```
 
 ### Add home page
@@ -311,7 +353,6 @@ Copy both files from https://github.com/cheminfo/cheminfo-server-setup/tree/mast
 ### Install ldapjs in ROC home dir
 
 ```bash
-su nodejs -l
 cd /usr/local/rest-on-couch
 npm install ldapjs
 ```
