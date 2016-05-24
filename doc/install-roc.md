@@ -319,6 +319,39 @@ echo "* * * * * node /usr/local/node/flavor-builder/bin/build.js --config=/usr/l
 Temporarily: `setenforce 0`
 Permanently: edit `/etc/selinux/config` and set `SELINUX=permissive`
 
+### Open port 80
+
+<table>
+<tr>
+<th>System</th>
+<th>Code</th>
+</tr>
+<tr>
+<td>
+CentOS 7 (64bit)
+</td>
+<td>
+<pre lang="bash">
+  firewall-cmd --permanent --zone=public --add-port=80/tcp
+  firewall-cmd --reload
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+CentOS 6 (32bit)
+</td>
+<td>
+<pre lang="bash">
+  iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+  iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+  #/etc/sysconfig/iptables
+  service iptables restart
+</pre>
+</td>
+</tr>
+</table>
+
 ### Install Apache
 
 ```bash
