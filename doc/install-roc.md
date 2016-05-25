@@ -265,7 +265,7 @@ mkdir /usr/local/flavor-builder
 ```
 
 ### Configure flavor-builder
-Copy and adapt the following configuration file to `/usr/local/flavor-builder/config.js`
+Copy and adapt the following configuration file to `/usr/local/flavor-builder/config.json`
 
 ```json
 {
