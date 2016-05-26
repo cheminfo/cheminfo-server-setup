@@ -308,7 +308,7 @@ Adapt `couchPassword`, `flavorUsername`
 ### Add flavor-builder crontab
 
 ```bash
-echo "* * * * * node /usr/local/node/flavor-builder/bin/build.js --config=/usr/local/flavor-builder/config.json  > /dev/null 2>&1" | crontab -
+echo "* * * * * /usr/local/node/latest/bin/node /usr/local/node/flavor-builder/bin/build.js --config=/usr/local/flavor-builder/config.json  > /dev/null 2>&1" | crontab -
 ```
 
 
