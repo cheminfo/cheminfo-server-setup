@@ -173,11 +173,11 @@ mkdir -p /usr/local/rest-on-couch
 
 ### Create PM2 config
 
-Create a file in `/usr/local/pm2/rest-on-couch.json` with the following content:
+Create a file in `/usr/local/pm2/roc.json` with the following content:
 
 ```json
 {
-  "name"        : "rest-on-couch",
+  "name"        : "roc",
   "script"      : "bin/rest-on-couch-server.js",
   "cwd"         : "/usr/local/node/rest-on-couch",
   "env"         : { "DEBUG": "couch:error,couch:warn,couch:debug", "REST_ON_COUCH_HOME_DIR": "/usr/local/rest-on-couch" },
