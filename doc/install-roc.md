@@ -163,6 +163,7 @@ cd /usr/local/node
 git clone https://github.com/cheminfo/rest-on-couch.git
 cd rest-on-couch
 npm install
+npm run compile
 ```
 
 ### Create rest-on-couch home directory
