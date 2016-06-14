@@ -469,13 +469,7 @@ module.exports = {
         searchFilter: 'uid={{username}}'
       }
     }
-    couchDB: {
-      server:{
-        url: 'http://couchDB.example.com',
-        searchBase: 'c=ch',
-        searchFilter: 'uid={{username}}'
-      }
-    }
+    couchDB: {}
   },
   
   // Default database rights
