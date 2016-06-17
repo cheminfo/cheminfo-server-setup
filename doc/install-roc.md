@@ -230,6 +230,8 @@ module.exports = {
     }
   },
   
+  //couchdb:{} //Uncomment to allow couchdb authentication
+  
   // Default database rights
   // Any logged in user can create documents. Only owners can read and write their own documents
   rights: {
@@ -440,49 +442,3 @@ ldap.search('c=ch', {
   });
 });
 ```
-
-## Add couchDB login 
-
-Alternatively, you can use the couchDB login system instead or along ldap.
-
-Add the couchDB configuration in the 'auth' properties in `/usr/local/rest-on-couch/config.js`
-
-```js
-'use strict';
-
-module.exports = {
-  allowedOrigins: ["http://server1.example.com"],
-  port: 3005,
-  sessionDomain: "server1.example.com",
-
-  // CouchDB credentials
-  username: "rest-on-couch",
-  password: "123",
-
-  proxyPrefix: '/rest-on-couch/',
-  publicAddress: 'https://server1.example.com',  
-  auth: {
-    ldap: {
-      server: {
-        url: 'ldaps://ldap.example.com',
-        searchBase: 'c=ch',
-        searchFilter: 'uid={{username}}'
-      }
-    }
-    couchDB: {}
-  },
-  
-  // Default database rights
-  // Any logged in user can create documents. Only owners can read and write their own documents
-  rights: {
-    read: [],
-    write: [],
-    create: ['anyuser']
-  }
-};
-```
-
-
-
-
-
