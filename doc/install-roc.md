@@ -230,8 +230,11 @@ module.exports = {
     }
   },
   
-  //couchdb:{} //Uncomment to allow couchdb authentication
+  //Uncomment to allow couchdb authentication
+  //couchdb:{} 
   
+  //Uncomment and configure to allow google authentication
+  //google:{clientID:"242342424", clientSecret:"sad3fsfsfs"}
   // Default database rights
   // Any logged in user can create documents. Only owners can read and write their own documents
   rights: {
