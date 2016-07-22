@@ -1,0 +1,57 @@
+
+{
+    "possibleViews": {
+        "Blank": {
+            "url": ""
+        }
+    },
+    "visualizerConfig": {
+        "modules": {
+            "folders": [
+                "modules/types"
+            ]
+        },
+        "header": {
+            "height": "30px",
+            "elements": [
+                {
+                   "type": "versionselector",
+                    "label": "Switch version",
+                    "url": "https://myserver.com/visualizer/versions.json",
+                    "queryType": "fragment"
+                },
+
+                {
+                    "type": "roc-views",
+                    "label": "View manager",
+                    "url": "https://my-roc-views-server.com",
+                    "database": "visualizer"
+                },
+                {
+                    "type": "copyview",
+                    "label": "Copy view"
+                },
+                {
+                    "type": "pasteview",
+                    "label": "Paste view"
+                },
+                {
+                    "type": "blankview",
+                    "label": "Blank view"
+                }
+            ]
+        }
+    },
+    "rocLogin": {
+        "url": "https://my-login-server.com/",
+        "auto": true
+    },
+    "rewriteRules": [
+        {
+            "reg": "^[^/]+$",
+            "replace": "https://my-roc-views-server.com/db/visualizer/entry/$&/view.json"
+        }
+    ],
+    "visualizerFallbackVersion": "HEAD"
+}
+ 
