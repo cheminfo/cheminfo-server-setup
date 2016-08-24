@@ -256,6 +256,11 @@ git clone https://github.com/cheminfo/roc-visualizer-config.git visualizer
 The flavor-builder enables to generate a static website from a users's public views
 The flavor-builder will work once the output directory in apache has been created (see Apache section)
 
+### Create a filtered replication of the view database
+```bash
+curl -H 'Content-Type: application/json' -X POST http://admin:password@localhost:5984/_replicator -d '{"source":"http://admin:password@localhost:5984/visualizer","target":"http://admin:password@localhost:5984/visualizer-public", "continuous":true, "create_target": true, "filter": "app/copyPublic"}'
+```
+
 ### Install flavor-builder
 ```bash
 cd /usr/local/node/
