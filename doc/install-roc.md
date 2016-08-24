@@ -258,7 +258,10 @@ The flavor-builder will work once the output directory in apache has been create
 
 ### Create a filtered replication of the view database
 ```bash
+# Trigger a continuous filtered replication of the visualizer database of views
 curl -H 'Content-Type: application/json' -X POST http://admin:password@localhost:5984/_replicator -d '{"source":"http://admin:password@localhost:5984/visualizer","target":"http://admin:password@localhost:5984/visualizer-public", "continuous":true, "create_target": true, "filter": "app/copyPublic"}'
+# Update security of the database, make it readable by anyone but writable only by rest-on-couch
+curl -X PUT http://admin:password@localhost:5984/visualizer-public/_security -d '{"admins":{"names":["rest-on-couch"],"roles":[]},"members":{"names":[],"roles":[]}}'
 ```
 
 ### Install flavor-builder
