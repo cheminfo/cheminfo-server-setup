@@ -280,7 +280,7 @@ Copy and adapt the following configuration file to `/usr/local/flavor-builder/co
 
 ```json
 {
-  "couchurl": "",
+  "couchurl": "http://isicgesrv2.epfl.ch/couchdb/",
   "couchLocalUrl": "http://127.0.0.1:5984",
   "couchDatabase": "visualizer",
   "couchUsername": "rest-on-couch",
@@ -308,7 +308,11 @@ Copy and adapt the following configuration file to `/usr/local/flavor-builder/co
         "url": "http://isicgesrv2.epfl.ch/rest-on-couch/",
         "redirect": "http://isicgesrv2.epfl.ch/flavor-builder/",
         "auto": true
-      }
+      },
+      "rewriteRules": [
+        {"reg": "^[^/]+$", "replace": "http://isicgesrv2.epfl.ch/couchdb/visualizer-public/$&/view.json"}
+      ]
+
     }
   }
 }
