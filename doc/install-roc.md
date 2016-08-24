@@ -285,7 +285,7 @@ Copy and adapt the following configuration file to `/usr/local/flavor-builder/co
 {
   "couchurl": "http://isicgesrv2.epfl.ch/couchdb/",
   "couchLocalUrl": "http://127.0.0.1:5984",
-  "couchDatabase": "visualizer",
+  "couchDatabase": "visualizer-public",
   "couchUsername": "rest-on-couch",
   "couchPassword": "123",
   "dir": "/var/www/html/flavor-builder",
