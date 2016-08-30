@@ -8,6 +8,11 @@
     "height": "30px",
     "elements": [
       {
+        "type": "versionselector",
+        "label": "Switch version",
+        "url": "https://www.lactame.com/visualizer/versions.json"
+      },
+      {
         "type": "roc-views",
         "label": "View manager",
         "url": "/rest-on-couch",
