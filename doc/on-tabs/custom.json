@@ -17,7 +17,7 @@
                 {
                    "type": "versionselector",
                     "label": "Switch version",
-                    "url": "https://myserver.com/visualizer/versions.json",
+                    "url": "https://www.lactame.com/visualizer/versions.json",
                     "queryType": "fragment"
                 },
 
