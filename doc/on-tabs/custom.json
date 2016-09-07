@@ -52,6 +52,7 @@
             "replace": "https://my-roc-views-server.com/db/visualizer/entry/$&/view.json"
         }
     ],
-    "visualizerFallbackVersion": "HEAD"
+    "visualizerFallbackVersion": "HEAD",
+    "visualizerVersion": "latest"
 }
  
