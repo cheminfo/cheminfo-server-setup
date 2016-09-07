@@ -2,6 +2,8 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+- [Overview](#overview)
+  - [Useful links](#useful-links)
 - [ROC installation instructions](#roc-installation-instructions)
   - [Step 1: Install CouchDB](#step-1-install-couchdb)
     - [Download and build CouchDB](#download-and-build-couchdb)
@@ -29,9 +31,8 @@
     - [Disable SELinux](#disable-selinux)
     - [Open port 80](#open-port-80)
     - [Install Apache](#install-apache)
-    - [Add proxy pass to Apache configuration](#add-proxy-pass-to-apache-configuration)
+    - [Add rest-on-couch proxy pass to Apache configuration](#add-rest-on-couch-proxy-pass-to-apache-configuration)
     - [Enable Apache](#enable-apache)
-    - [Create directories](#create-directories)
     - [Add home page](#add-home-page)
   - [Step 7: Configure LDAP search](#step-7-configure-ldap-search)
     - [Install ldapjs in ROC home dir](#install-ldapjs-in-roc-home-dir)
@@ -43,8 +44,14 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# ROC installation instructions
+# Overview
+## Useful links
+* [CouchDB](http://couchdb.apache.org/)
+* [nodejs](https://nodejs.org/en/)
+* [pm2](https://github.com/Unitech/pm2)
+* [rest-on-couch](https://github.com/cheminfo/rest-on-couch/)
 
+# ROC installation instructions
 How to install and configure a rest-on-couch server with built-in view manager.
 This tutorial is made for CentOS 7.
 
@@ -423,7 +430,7 @@ CentOS 6 (32bit)
 yum install httpd
 ```
 
-### Add proxy pass to Apache configuration
+### Add rest-on-couch proxy pass to Apache configuration
 
 ```
 ProxyPass /rest-on-couch/ http://127.0.0.1:3005/
@@ -460,15 +467,9 @@ CentOS 6 (32bit)
 </tr>
 </table>
 
-### Create directories
-
-```bash
-mkdir /var/www/html/flavor-builder
-```
-
 ### Add home page
 
-Copy both files from https://github.com/cheminfo/cheminfo-server-setup/tree/master/doc/home somewhere on your website
+Copy both files from https://github.com/cheminfo/cheminfo-server-setup/tree/master/doc/home somewhere in your root apache directory
 
 ## Step 7: Configure LDAP search
 
