@@ -44,7 +44,7 @@ CentOS 6 (32bit)
   ./configure
   make
   make install
-  cp -an /usr/local/lib/libmozjs* /lib/
+  cp -an /usr/local/lib/libmozjs* /lib/ # Copy to /lib64/ instead on 64 bit system
   
   cd /usr/local/src
   curl -s  http://mirror.switch.ch/mirror/apache/dist/couchdb/source/1.6.1/apache-couchdb-1.6.1.tar.gz | tar -zx
