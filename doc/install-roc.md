@@ -1,3 +1,48 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [ROC installation instructions](#roc-installation-instructions)
+  - [Step 1: Install CouchDB](#step-1-install-couchdb)
+    - [Download and build CouchDB](#download-and-build-couchdb)
+    - [Create CouchDB user and start the server](#create-couchdb-user-and-start-the-server)
+    - [Setup CouchDB administrator account](#setup-couchdb-administrator-account)
+  - [Step 2: Install Node.js](#step-2-install-nodejs)
+    - [Download and install latest Node.js version](#download-and-install-latest-nodejs-version)
+    - [Add Node.js bin directory to the PATH](#add-nodejs-bin-directory-to-the-path)
+  - [Step 3: Install PM2](#step-3-install-pm2)
+  - [Step 4: Install rest-on-couch](#step-4-install-rest-on-couch)
+    - [Download ROC and install dependencies](#download-roc-and-install-dependencies)
+    - [Create rest-on-couch home directory](#create-rest-on-couch-home-directory)
+    - [Create PM2 config](#create-pm2-config)
+    - [Add rest-on-couch user](#add-rest-on-couch-user)
+    - [Create rest-on-couch database(s)](#create-rest-on-couch-databases)
+    - [Create rest-on-couch config](#create-rest-on-couch-config)
+    - [Create rest-on-couch config for the visualizer database](#create-rest-on-couch-config-for-the-visualizer-database)
+  - [Step 5: install and configure flavor-builder](#step-5-install-and-configure-flavor-builder)
+    - [Create a filtered replication of the view database](#create-a-filtered-replication-of-the-view-database)
+    - [Install flavor-builder](#install-flavor-builder)
+    - [Create flavor-builder config directory](#create-flavor-builder-config-directory)
+    - [Configure flavor-builder](#configure-flavor-builder)
+    - [Add flavor-builder crontab](#add-flavor-builder-crontab)
+  - [Step 6: install and/or configure Apache](#step-6-install-andor-configure-apache)
+    - [Disable SELinux](#disable-selinux)
+    - [Open port 80](#open-port-80)
+    - [Install Apache](#install-apache)
+    - [Add proxy pass to Apache configuration](#add-proxy-pass-to-apache-configuration)
+    - [Enable Apache](#enable-apache)
+    - [Create directories](#create-directories)
+    - [Add home page](#add-home-page)
+  - [Step 7: Configure LDAP search](#step-7-configure-ldap-search)
+    - [Install ldapjs in ROC home dir](#install-ldapjs-in-roc-home-dir)
+    - [Example use](#example-use)
+  - [Step 8: Install and configure visualizer-on-tabs](#step-8-install-and-configure-visualizer-on-tabs)
+    - [Clone visualizer-on-tabs](#clone-visualizer-on-tabs)
+    - [Choose your configuration](#choose-your-configuration)
+    - [Build the project on your default apache websites directory](#build-the-project-on-your-default-apache-websites-directory)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # ROC installation instructions
 
 How to install and configure a rest-on-couch server with built-in view manager.
@@ -196,7 +241,9 @@ curl -X PUT http://admin:password@localhost:5984/_users/org.couchdb.user:rest-on
 ### Create rest-on-couch database(s)
 
 ```bash
+# Create the database
 curl -X PUT http://admin:password@localhost:5984/visualizer/
+# Update database's security document. Makes the database editable only by the rest-on-couch couchdb user
 curl -X PUT http://admin:password@localhost:5984/visualizer/_security -d '{"admins":{"names":["rest-on-couch"],"roles":[]},"members":{"names":["rest-on-couch"],"roles":[]}}'
 ```
 
