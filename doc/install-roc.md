@@ -21,22 +21,22 @@
     - [Create rest-on-couch database(s)](#create-rest-on-couch-databases)
     - [Create rest-on-couch config](#create-rest-on-couch-config)
     - [Create rest-on-couch config for the visualizer database](#create-rest-on-couch-config-for-the-visualizer-database)
-  - [Step 5: install and configure flavor-builder](#step-5-install-and-configure-flavor-builder)
-    - [Create a filtered replication of the view database](#create-a-filtered-replication-of-the-view-database)
-    - [Install flavor-builder](#install-flavor-builder)
-    - [Create flavor-builder config directory](#create-flavor-builder-config-directory)
-    - [Configure flavor-builder](#configure-flavor-builder)
-    - [Add flavor-builder crontab](#add-flavor-builder-crontab)
-  - [Step 6: install and/or configure Apache](#step-6-install-andor-configure-apache)
+  - [Step 5: install and/or configure Apache](#step-5-install-andor-configure-apache)
     - [Disable SELinux](#disable-selinux)
     - [Open port 80](#open-port-80)
     - [Install Apache](#install-apache)
     - [Add rest-on-couch proxy pass to Apache configuration](#add-rest-on-couch-proxy-pass-to-apache-configuration)
     - [Enable Apache](#enable-apache)
     - [Add home page](#add-home-page)
-  - [Step 7: Configure LDAP search](#step-7-configure-ldap-search)
+  - [Step 6: Configure LDAP search](#step-6-configure-ldap-search)
     - [Install ldapjs in ROC home dir](#install-ldapjs-in-roc-home-dir)
     - [Example use](#example-use)
+  - [Step 7: install and configure flavor-builder](#step-7-install-and-configure-flavor-builder)
+    - [Create a filtered replication of the view database](#create-a-filtered-replication-of-the-view-database)
+    - [Install flavor-builder](#install-flavor-builder)
+    - [Create flavor-builder config directory](#create-flavor-builder-config-directory)
+    - [Configure flavor-builder](#configure-flavor-builder)
+    - [Add flavor-builder crontab](#add-flavor-builder-crontab)
   - [Step 8: Install and configure visualizer-on-tabs](#step-8-install-and-configure-visualizer-on-tabs)
     - [Clone visualizer-on-tabs](#clone-visualizer-on-tabs)
     - [Choose your configuration](#choose-your-configuration)
@@ -306,85 +306,7 @@ cd /usr/local/rest-on-couch
 git clone https://github.com/cheminfo/roc-visualizer-config.git visualizer
 ```
 
-## Step 5: install and configure flavor-builder
-The flavor-builder enables to generate a static website from a users's public views
-The flavor-builder will work once the output directory in apache has been created (see Apache section)
-
-### Create a filtered replication of the view database
-```bash
-# Trigger a continuous filtered replication of the visualizer database of views
-curl -H 'Content-Type: application/json' -X POST http://admin:password@localhost:5984/_replicator -d '{"source":"http://admin:password@localhost:5984/visualizer","target":"http://admin:password@localhost:5984/visualizer-public", "continuous":true, "create_target": true, "filter": "app/copyPublic"}'
-# Update security of the database, make it readable by anyone but writable only by rest-on-couch
-curl -X PUT http://admin:password@localhost:5984/visualizer-public/_security -d '{"admins":{"names":["rest-on-couch"],"roles":[]},"members":{"names":[],"roles":[]}}'
-```
-
-### Install flavor-builder
-```bash
-cd /usr/local/node/
-git clone https://github.com/cheminfo/flavor-builder.git
-cd /usr/local/node/flavor-builder
-npm install
-```
-
-### Create flavor-builder config directory
-
-```bash
-mkdir /usr/local/flavor-builder
-```
-
-### Configure flavor-builder
-Copy and adapt the following configuration file to `/usr/local/flavor-builder/config.json`
-
-```json
-{
-  "couchurl": "http://isicgesrv2.epfl.ch/couchdb/",
-  "couchLocalUrl": "http://127.0.0.1:5984",
-  "couchDatabase": "visualizer-public",
-  "couchUsername": "rest-on-couch",
-  "couchPassword": "123",
-  "dir": "/var/www/html/flavor-builder",
-  "home": "Home",
-  "forceUpdate": false,
-  "flavorUsername": "michael.zasso@epfl.ch",
-  "editRedirect": "http://isicgesrv2.epfl.ch/visualizer/",
-  "cdn": "http://www.lactame.com",
-  "direct": "http://direct.lactame.com",
-  "flavorLayouts": {
-    "720p": "minimal-simple-menu",
-    "eln": "visualizer-on-tabs"
-  },
-  "layouts": {
-    "default": "simplemenu/endlayouts/simplemenu.html",
-    "minimal-simple-menu": "simplemenu/endlayouts/simple.html"
-  },
-  "libFolder": "Q92ELCJKTIDXB",
-  "selfContained": true,
-  "visualizerOnTabs": {
-    "_default": {
-      "rocLogin": {
-        "url": "http://isicgesrv2.epfl.ch/rest-on-couch/",
-        "redirect": "http://isicgesrv2.epfl.ch/flavor-builder/",
-        "auto": true
-      },
-      "rewriteRules": [
-        {"reg": "^[^/]+$", "replace": "http://isicgesrv2.epfl.ch/couchdb/visualizer-public/$&/view.json"}
-      ]
-
-    }
-  }
-}
-```
-
-Adapt `couchPassword`, `flavorUsername`
-
-### Add flavor-builder crontab
-
-```bash
-echo "* * * * * (cd /usr/local/node/flavor-builder/ /usr/local/node/latest/bin/node bin/build.js --config=/usr/local/flavor-builder/config.json  > /dev/null 2>&1)" | crontab -
-```
-
-
-## Step 6: install and/or configure Apache
+## Step 5: install and/or configure Apache
 
 ### Disable SELinux
 
@@ -471,7 +393,7 @@ CentOS 6 (32bit)
 
 Copy both files from https://github.com/cheminfo/cheminfo-server-setup/tree/master/doc/home somewhere in your root apache directory
 
-## Step 7: Configure LDAP search
+## Step 6: Configure LDAP search
 
 ### Install ldapjs in ROC home dir
 
@@ -505,6 +427,84 @@ ldap.search('c=ch', {
   });
 });
 ```
+## Step 7: install and configure flavor-builder
+The flavor-builder enables to generate a static website from a users's public views
+The flavor-builder will work once the output directory in apache has been created (see Apache section)
+
+### Create a filtered replication of the view database
+```bash
+# Trigger a continuous filtered replication of the visualizer database of views
+curl -H 'Content-Type: application/json' -X POST http://admin:password@localhost:5984/_replicator -d '{"source":"http://admin:password@localhost:5984/visualizer","target":"http://admin:password@localhost:5984/visualizer-public", "continuous":true, "create_target": true, "filter": "app/copyPublic"}'
+# Update security of the database, make it readable by anyone but writable only by rest-on-couch
+curl -X PUT http://admin:password@localhost:5984/visualizer-public/_security -d '{"admins":{"names":["rest-on-couch"],"roles":[]},"members":{"names":[],"roles":[]}}'
+```
+
+### Install flavor-builder
+```bash
+cd /usr/local/node/
+git clone https://github.com/cheminfo/flavor-builder.git
+cd /usr/local/node/flavor-builder
+npm install
+```
+
+### Create flavor-builder config directory
+
+```bash
+mkdir /usr/local/flavor-builder
+```
+
+### Configure flavor-builder
+Copy and adapt the following configuration file to `/usr/local/flavor-builder/config.json`
+
+```json
+{
+  "couchurl": "http://isicgesrv2.epfl.ch/couchdb/",
+  "couchLocalUrl": "http://127.0.0.1:5984",
+  "couchDatabase": "visualizer-public",
+  "couchUsername": "rest-on-couch",
+  "couchPassword": "123",
+  "dir": "/var/www/html/flavor-builder",
+  "home": "Home",
+  "forceUpdate": false,
+  "flavorUsername": "michael.zasso@epfl.ch",
+  "editRedirect": "http://isicgesrv2.epfl.ch/visualizer/",
+  "cdn": "http://www.lactame.com",
+  "direct": "http://direct.lactame.com",
+  "flavorLayouts": {
+    "720p": "minimal-simple-menu",
+    "eln": "visualizer-on-tabs"
+  },
+  "layouts": {
+    "default": "simplemenu/endlayouts/simplemenu.html",
+    "minimal-simple-menu": "simplemenu/endlayouts/simple.html"
+  },
+  "libFolder": "Q92ELCJKTIDXB",
+  "selfContained": true,
+  "visualizerOnTabs": {
+    "_default": {
+      "rocLogin": {
+        "url": "http://isicgesrv2.epfl.ch/rest-on-couch/",
+        "redirect": "http://isicgesrv2.epfl.ch/flavor-builder/",
+        "auto": true
+      },
+      "rewriteRules": [
+        {"reg": "^[^/]+$", "replace": "http://isicgesrv2.epfl.ch/couchdb/visualizer-public/$&/view.json"}
+      ]
+
+    }
+  }
+}
+```
+
+Adapt `couchPassword`, `flavorUsername`
+
+### Add flavor-builder crontab
+
+```bash
+echo "* * * * * (cd /usr/local/node/flavor-builder/ /usr/local/node/latest/bin/node bin/build.js --config=/usr/local/flavor-builder/config.json  > /dev/null 2>&1)" | crontab -
+```
+
+
 ## Step 8: Install and configure visualizer-on-tabs
 
 ### Clone visualizer-on-tabs
