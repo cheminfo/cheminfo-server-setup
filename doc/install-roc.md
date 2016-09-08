@@ -445,7 +445,6 @@ ldap.search('c=ch', {
 ```
 ## Step 7: install and configure flavor-builder
 The flavor-builder enables to generate a static website from a users's public views
-The flavor-builder will work once the output directory in apache has been created (see Apache section)
 
 ### Create a filtered replication of the view database
 ```bash
