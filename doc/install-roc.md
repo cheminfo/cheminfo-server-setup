@@ -348,7 +348,9 @@ CentOS 6 (32bit)
 </table>
 
 ### Create and configure a virtual host for your web pages
-
+```bash
+vim /etc/httpd/conf.d/cheminfo.conf
+```
 ```
 <VirtualHost *:80>
      DocumentRoot /var/www/html/
