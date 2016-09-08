@@ -515,6 +515,7 @@ Clone the github project in your prefered location. In this example let's use /u
 cd usr/local/node/
 git clone https://github.com/cheminfo/visualizer-on-tabs.git
 cd visualizer-on-tabs
+npm install
 ```
 
 ### Choose your configuration
