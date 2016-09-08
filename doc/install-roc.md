@@ -223,22 +223,6 @@ npm run compile
 ```bash
 mkdir -p /usr/local/rest-on-couch
 ```
-
-### Create PM2 config
-
-Create a file in `/usr/local/pm2/roc.json` with the following content:
-
-```json
-{
-  "name"        : "roc",
-  "script"      : "bin/rest-on-couch-server.js",
-  "cwd"         : "/usr/local/node/rest-on-couch",
-  "env"         : { "DEBUG": "couch:error,couch:warn,couch:debug", "REST_ON_COUCH_HOME_DIR": "/usr/local/rest-on-couch" },
-  "exec_mode"   : "cluster_mode",
-  "instances"   : 4 
-}
-```
-
 ### Add rest-on-couch user
 
 ```bash
@@ -304,6 +288,25 @@ Clone the rest-on-couch config for the visualizer to `/usr/local/rest-on-couch/v
 ```
 cd /usr/local/rest-on-couch
 git clone https://github.com/cheminfo/roc-visualizer-config.git visualizer
+```
+
+### Create pm2 config and launch rest-on-couch process
+Create a file in `/usr/local/pm2/roc.json` with the following content:
+
+```json
+{
+  "name"        : "roc",
+  "script"      : "bin/rest-on-couch-server.js",
+  "cwd"         : "/usr/local/node/rest-on-couch",
+  "env"         : { "DEBUG": "couch:error,couch:warn,couch:debug", "REST_ON_COUCH_HOME_DIR": "/usr/local/rest-on-couch" },
+  "exec_mode"   : "cluster_mode",
+  "instances"   : 4 
+}
+```
+
+Then launch the rest-on-couch process with the following command:
+```bash
+pm2 start /usr/local/pm2/roc.json
 ```
 
 ## Step 5: install and/or configure Apache
