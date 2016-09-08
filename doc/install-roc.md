@@ -394,6 +394,11 @@ CentOS 6 (32bit)
 ### Add home page
 
 Copy both files from https://github.com/cheminfo/cheminfo-server-setup/tree/master/doc/home somewhere in your root apache directory
+```bash
+mkdir -p /var/www/html/visualizer
+curl -s http://www.lactame.com/github/cheminfo/cheminfo-server-setup/master/doc/home/config.json > /var/www/html/visualizer/config.json
+curl -s http://www.lactame.com/github/cheminfo/cheminfo-server-setup/master/doc/home/index.html > /var/www/html/visualizer/index.html
+```
 
 ## Step 6: Configure LDAP search
 
