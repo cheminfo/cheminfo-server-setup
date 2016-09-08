@@ -337,9 +337,9 @@ CentOS 6 (32bit)
 </td>
 <td>
 <pre lang="bash">
-  iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
-  iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
-  #/etc/sysconfig/iptables
+  iptables -I INPUT 1 -p tcp -mtcp --dport 80 -j ACCEPT
+  iptables -I INPUT 1 -p tcp -mtcp --dport 443 -j ACCEPT
+  service iptables save
   service iptables restart
 </pre>
 </td>
