@@ -21,6 +21,7 @@
     - [Create rest-on-couch config](#create-rest-on-couch-config)
     - [Create rest-on-couch config for the visualizer database](#create-rest-on-couch-config-for-the-visualizer-database)
     - [Create pm2 config and launch rest-on-couch process](#create-pm2-config-and-launch-rest-on-couch-process)
+    - [Trigger the initialization of the visualizer database in rest-on-couch](#trigger-the-initialization-of-the-visualizer-database-in-rest-on-couch)
   - [Step 5: install and/or configure Apache](#step-5-install-andor-configure-apache)
     - [Disable SELinux](#disable-selinux)
     - [Open port 80](#open-port-80)
