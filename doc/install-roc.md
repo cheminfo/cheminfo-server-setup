@@ -507,7 +507,7 @@ echo "* * * * * (cd /usr/local/node/flavor-builder/ /usr/local/node/latest/bin/n
 Clone the github project in your prefered location. In this example let's use /usr/local/node/
 
 ```bash
-cd usr/local/node/
+cd /usr/local/node/
 git clone https://github.com/cheminfo/visualizer-on-tabs.git
 cd visualizer-on-tabs
 npm install
