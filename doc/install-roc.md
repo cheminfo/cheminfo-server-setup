@@ -70,7 +70,7 @@ CentOS 7 (64bit)
 </td>
 <td>
 <pre lang="bash">
-  yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness js-devel
+  yum --assumeyes install autoconf autoconf-archive automake curl-devel erlang erlang-asn1 erlang-erts erlang-eunit erlang-os_mon erlang-xmerl gcc-c++ help2man libicu-devel libtool perl-Test-Harness js-devel git crontabs httpd
   mkdir -p /usr/local/src/
   cd /usr/local/src
   curl -s  http://mirror.switch.ch/mirror/apache/dist/couchdb/source/1.6.1/apache-couchdb-1.6.1.tar.gz | tar -zx
@@ -345,12 +345,6 @@ CentOS 6 (32bit)
 </td>
 </tr>
 </table>
-
-### Install Apache
-
-```bash
-yum install httpd
-```
 
 ### Add rest-on-couch proxy pass to Apache configuration
 
