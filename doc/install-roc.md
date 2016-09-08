@@ -309,6 +309,12 @@ Then launch the rest-on-couch process with the following command:
 pm2 start /usr/local/pm2/roc.json
 ```
 
+### Trigger the initialization of the visualizer database in rest-on-couch
+This is needed because rest-on-couch loads the configuration of the database on request, not on load
+```bash
+curl http://localhost/rest-on-couch/db/visualizer/entry/_all
+```
+
 ## Step 5: install and/or configure Apache
 
 ### Disable SELinux
