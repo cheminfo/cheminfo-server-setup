@@ -198,6 +198,7 @@ CentOS 6 (32bit)
 ```bash
 echo 'PATH=${PATH}:/usr/local/node/latest/bin' >> /root/.bashrc
 ```
+Now reload a session in your terminal (by relogging in) to update you environment
 
 ## Step 3: Install PM2
 
