@@ -273,7 +273,7 @@ module.exports = {
   password: "123",
 
   proxyPrefix: '/rest-on-couch/',
-  publicAddress: 'https://server1.example.com',  
+  publicAddress: 'https://server1.example.com/rest-on-couch/',  
   auth: {
     ldap: {
       server: {
