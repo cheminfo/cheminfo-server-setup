@@ -347,10 +347,15 @@ CentOS 6 (32bit)
 </tr>
 </table>
 
-### Add rest-on-couch proxy pass to Apache configuration
+### Create and configure a virtual host for your web pages
 
 ```
-ProxyPass /rest-on-couch/ http://127.0.0.1:3005/
+<VirtualHost *:80>
+     DocumentRoot /var/www/html/
+     ServerName test1.cheminfo.org
+     ProxyPass /rest-on-couch/ http://127.0.0.1:3005/
+     ProxyPass /couchdb/ http://127.0.0.1:5984/
+</VirtualHost>
 ```
 
 ### Enable Apache
