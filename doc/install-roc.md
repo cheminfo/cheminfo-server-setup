@@ -535,7 +535,7 @@ npm install
 
 ### Choose your configuration
 
-If you want to override the default behavior of visualizer-on-tabs, you have to add a custom.json with your custom preferences in /usr/local/on-tabs-config/custom.json. Here there is an [example](https://github.com/cheminfo/cheminfo-server-setup/blob/master/doc/on-tabs/custom.json)
+You should override the default behavior of visualizer-on-tabs. To do so, create a custom configuration `config.json` with your custom preferences in /usr/local/on-tabs-config/config.json. Here is a [template configuration file](https://github.com/cheminfo/cheminfo-server-setup/blob/master/doc/on-tabs/config.json)
 
 ### Build the project on your default apache websites directory
 
